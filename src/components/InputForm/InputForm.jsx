@@ -20,4 +20,4 @@ function InputForm(props) {
   );
 }
 
-export default InputForm;
+export default { InputForm };
