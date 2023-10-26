@@ -15,8 +15,7 @@ function InputForm(props) {
       onChange={props.onChange}
       InputProps={{
         style: {
-          ...widthDinamico,
-          minWidth: '250px',
+          flex: '1',
         },
       }}
     />

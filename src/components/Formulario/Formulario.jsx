@@ -1,25 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from './Formulario.module.css';
 import Titulo from '../Titulo/Titulo';
 import InputForm from '../InputForm/InputForm';
 import InputLeitura from '../InputLeitura/InputLeitura';
-import { Button } from '@mui/material';
+import { Button, MenuItem } from '@mui/material';
 import consultaCEP from '../../functions/consultaCEP';
+import SelectForm from '../SelectForm/SelectForm';
 
 /* 005ca9 */
 
 export default function Formulario() {
   const [nome, setNome] = useState('');
   const [cpf, setCPF] = useState('');
+  const [estadoCivil, setEstadoCivil] = useState('');
+  const [pis, setPis] = useState('');
   const [celular, setCelular] = useState('');
   const [email, setEmail] = useState('');
   const [cep, setCEP] = useState('');
-  const [cepConsultado, setCEPConsultado] = useState([]);
   const [cepLogradouro, setCEPLogradouro] = useState('');
   const [cepBairro, setCEPBairro] = useState('');
   const [cepLocalidade, setCEPLocalidade] = useState('');
   const [cepUF, setCEPUF] = useState('');
   const [cepNumero, setCENumero] = useState('');
+  const [cepComplemento, setCEPComplemento] = useState('');
+  const [renda, setRenda] = useState('');
+  const [status, setStatus] = useState(1);
 
   async function procuraCEP(e) {
     e.preventDefault();
@@ -32,113 +37,194 @@ export default function Formulario() {
     setCEPLogradouro(resultadoConsulta.logradouro);
   }
 
+  function voltar() {
+    if (status != 1 && status >= 1 && status <= 5) {
+      setStatus(status - 1);
+    }
+  }
+
+  function avancar() {
+    if (status >= 1 && status <= 5) {
+      setStatus(status + 1);
+    }
+  }
+
   return (
     <form>
       <section className={styles.container}>
-        <Titulo texto="Dados Pessoais" />
+        <section
+          className={styles.categoriaContainer}
+          style={{ display: status === 1 ? 'flex' : 'none' }}
+        >
+          <Titulo texto="Dados Pessoais" />
 
-        <div>
-          <InputForm
-            id="input-nome"
-            value={nome}
-            label="Nome"
-            onChange={(event) => {
-              setNome(event.target.value);
-            }}
-          />
+          <div>
+            <InputForm
+              id="input-nome"
+              value={nome}
+              label="Nome"
+              onChange={(event) => {
+                setNome(event.target.value);
+              }}
+            />
 
-          <InputForm
-            id="input-CPF"
-            value={cpf}
-            label="CPF"
-            onChange={(event) => {
-              setCPF(
-                event.target.value
-                  .replace(/\D/g, '')
-                  .replace(/(\d{3})(\d)/, '$1.$2')
-                  .replace(/(\d{3})(\d)/, '$1.$2')
-                  .replace(/(\d{3})(\d{1,2})/, '$1-$2')
-                  .replace(/(-\d{2})\d+?$/, '$1'),
-              );
-            }}
-          />
-        </div>
+            <InputForm
+              id="input-CPF"
+              value={cpf}
+              label="CPF"
+              onChange={(event) => {
+                setCPF(
+                  event.target.value
+                    .replace(/\D/g, '')
+                    .replace(/(\d{3})(\d)/, '$1.$2')
+                    .replace(/(\d{3})(\d)/, '$1.$2')
+                    .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+                    .replace(/(-\d{2})\d+?$/, '$1'),
+                );
+              }}
+            />
+          </div>
 
-        <Titulo texto="Contatos" />
+          <div>
+            <SelectForm
+              id="input-estadoCivil"
+              value={estadoCivil}
+              onChange={(event) => {
+                setEstadoCivil(event.target.value);
+              }}
+            >
+              <MenuItem value="Solteiro">Solteiro</MenuItem>
+              <MenuItem value="Divorciado">Divorciado</MenuItem>
+              <MenuItem value="Separado judicialmente">
+                Separado judicialmente
+              </MenuItem>
+              <MenuItem value="Comunhão separação total de bens">
+                Comunhão separação total de bens
+              </MenuItem>
+              <MenuItem value="Comunhão parcial de bens">
+                Comunhão parcial de bens
+              </MenuItem>
+              <MenuItem value="Comunhão universal de bens">
+                Comunhão universal de bens
+              </MenuItem>
+            </SelectForm>
 
-        <div>
-          <InputForm
-            id="input-email"
-            value={email}
-            label="Email"
-            onChange={(event) => {
-              setEmail(event.target.value);
-            }}
-          />
+            <InputForm
+              id="input-pis"
+              value={pis}
+              label="PIS (caso tenha FGTS)"
+              onChange={(event) => {
+                setPis(event.target.value);
+              }}
+            />
+          </div>
+        </section>
 
-          <InputForm
-            id="input-celular"
-            value={celular}
-            label="Cel"
-            onChange={(event) => {
-              setCelular(
-                event.target.value
-                  .replace(/\D/g, '')
-                  .replace(/(\d{2})(\d{0,5})(\d{0,4})/, '($1) $2-$3'),
-              );
-            }}
-          />
-        </div>
+        <section
+          className={styles.categoriaContainer}
+          style={{ display: status === 2 ? 'flex' : 'none' }}
+        >
+          <Titulo texto="Contatos" />
 
-        <Titulo texto="CEP" />
-        <div>
-          <InputForm
-            id="input-cep"
-            value={cep}
-            label="CEP"
-            onChange={(event) => {
-              setCEP(event.target.value.replace(/(\d{5})(\d{3})/, '$1-$2'));
-              procuraCEP(event);
-            }}
-          />
+          <div>
+            <InputForm
+              id="input-email"
+              value={email}
+              label="Email"
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
+            />
 
-          <Button
-            variant="outlined"
-            className={styles.botaoProcurar}
-            onClick={procuraCEP}
-          >
-            Consultar
+            <InputForm
+              id="input-celular"
+              value={celular}
+              label="Cel"
+              onChange={(event) => {
+                setCelular(
+                  event.target.value
+                    .replace(/\D/g, '')
+                    .replace(/(\d{2})(\d{0,5})(\d{0,4})/, '($1) $2-$3'),
+                );
+              }}
+            />
+          </div>
+        </section>
+
+        <section
+          className={styles.categoriaContainer}
+          style={{ display: status === 3 ? 'flex' : 'none' }}
+        >
+          <Titulo texto="CEP" />
+          <div>
+            <InputForm
+              id="input-cep"
+              value={cep}
+              label="CEP"
+              onChange={(event) => {
+                setCEP(event.target.value.replace(/(\d{5})(\d{3})/, '$1-$2'));
+                procuraCEP(event);
+              }}
+            />
+
+            <Button
+              variant="outlined"
+              className={styles.botaoProcurar}
+              onClick={procuraCEP}
+            >
+              Consultar
+            </Button>
+          </div>
+
+          <div>
+            <InputLeitura
+              id="input-cepLocalidade"
+              label="Local"
+              value={cepLocalidade}
+            />
+            <InputLeitura
+              id="input-cepBairro"
+              label="Bairro"
+              value={cepBairro}
+            />
+            <InputLeitura id="input-cepUF" label="UF" value={cepUF} />
+          </div>
+          <div>
+            <InputLeitura
+              id="input-cepEndereco"
+              label="Endereço"
+              value={cepLogradouro}
+            />
+          </div>
+          <div>
+            <InputForm
+              id="input-cepNumero"
+              value={cepNumero}
+              label="Número"
+              onChange={(event) => {
+                setCENumero(event.target.value);
+              }}
+            />
+            <InputForm
+              id="input-cepComplemento"
+              value={cepComplemento}
+              label="Complemento"
+              onChange={(event) => {
+                setCEPComplemento(event.target.value);
+              }}
+            />
+          </div>
+        </section>
+
+        <section className={styles.containerBotoes}>
+          <Button variant="outlined" color="error" onClick={voltar}>
+            Voltar
           </Button>
-        </div>
-        <InputLeitura id="input-cepUF" label="UF" value={cepUF} />
-        <div>
-          <InputLeitura
-            id="input-cepLocalidade"
-            label="Local"
-            value={cepLocalidade}
-          />
-          <InputLeitura id="input-cepBairro" label="Bairro" value={cepBairro} />
-        </div>
 
-        <div>
-          <InputLeitura
-            id="input-cepEndereco"
-            label="Endereço"
-            value={cepLogradouro}
-          />
-          <InputForm
-            id="input-cepNumero"
-            value={cepNumero}
-            label="Número"
-            onChange={(event) => {
-              setCENumero(event.target.value);
-            }}
-          />
-        </div>
-
-        <Button type="submit" variant="contained" /* endIcon={} */>
-          Enviar
-        </Button>
+          <Button variant="contained" color="success" onClick={avancar}>
+            Avançar
+          </Button>
+        </section>
       </section>
     </form>
   );

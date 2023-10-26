@@ -13,7 +13,7 @@ export default function InputLeitura(props) {
       InputProps={{
         readOnly: true,
         style: {
-          minWidth: '315px',
+          flex: '1',
         },
       }}
     />
