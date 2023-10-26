@@ -66,4 +66,9 @@ form {
   .container div {
     flex-wrap: wrap;
   }
+
+  .categoriaContainer{
+    min-width: 100%;
+    min-height: 100%;
+  }
 }
