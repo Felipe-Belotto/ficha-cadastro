@@ -1,8 +1,11 @@
 h1{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
   font-size: 24px;
   background-color: #005ca9;
   color: white;
-  text-align: center;
   padding: 4px;
   margin: 0;
   font-weight: bold;

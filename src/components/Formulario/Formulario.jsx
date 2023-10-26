@@ -6,8 +6,7 @@ import InputLeitura from '../InputLeitura/InputLeitura';
 import { Button, MenuItem } from '@mui/material';
 import consultaCEP from '../../functions/consultaCEP';
 import SelectForm from '../SelectForm/SelectForm';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import SearchIcon from '@mui/icons-material/Search';
 
 /* 005ca9 */
 
@@ -48,6 +47,12 @@ export default function Formulario() {
     if (status >= 1 && status <= 5) {
       setStatus(status + 1);
     }
+  }
+
+  function localizarCEP() {
+    const url =
+      'https://buscacepinter.correios.com.br/app/endereco/index.php?t';
+    window.open(url, '_blank');
   }
 
   return (
@@ -170,11 +175,23 @@ export default function Formulario() {
                 className={styles.botaoProcurar}
                 onClick={procuraCEP}
                 style={{
+                  width: '50%',
                   backgroundColor: '#1f467e',
                   color: 'white',
                 }}
               >
                 Consultar
+              </Button>
+              <Button
+                variant="outlined"
+                className={styles.botaoProcurar}
+                onClick={localizarCEP}
+                style={{
+                  backgroundColor: '#1f467e',
+                  color: 'white',
+                }}
+              >
+                Localizar CEP
               </Button>
             </div>
 
@@ -223,23 +240,26 @@ export default function Formulario() {
           <Button
             variant="outlined"
             style={{
-              backgroundColor: 'white',
-              color: '#1f467e',
+              display: status === 1 ? 'none' : 'flex',
+              backgroundColor: '#eb0b1b',
+              color: 'white',
             }}
             onClick={voltar}
           >
-            <NavigateBeforeIcon />
+            Voltar
           </Button>
 
           <Button
             variant="outlined"
             style={{
-              backgroundColor: 'white',
-              color: '#1f467e',
+              display: 'flex',
+              alignItems: 'center',
+              backgroundColor: '#1f467e',
+              color: 'white',
             }}
             onClick={avancar}
           >
-            <NavigateNextIcon />
+            Avançar
           </Button>
         </section>
       </section>
