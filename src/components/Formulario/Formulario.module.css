@@ -17,3 +17,7 @@ form {
   gap: 10px;
 }
 
+.botaoProcurar {
+  display: flex;
+  flex:1;
+}

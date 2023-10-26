@@ -1,33 +1,42 @@
+import React, { useEffect, useState } from 'react';
 import styles from './Formulario.module.css';
-import { Button } from '@mui/material';
-import SendIcon from '@mui/icons-material/Send';
-import InputForm, { InputLeitura } from '../InputForm/InputForm';
-import { useState } from 'react';
 import Titulo from '../Titulo/Titulo';
+import InputForm from '../InputForm/InputForm';
+import InputLeitura from '../InputLeitura/InputLeitura';
+import { Button } from '@mui/material';
 import consultaCEP from '../../functions/consultaCEP';
 
 /* 005ca9 */
 
-function Formulario() {
+export default function Formulario() {
   const [nome, setNome] = useState('');
   const [cpf, setCPF] = useState('');
   const [celular, setCelular] = useState('');
-
   const [email, setEmail] = useState('');
   const [cep, setCEP] = useState('');
-  const [cepConsultado, setCEPConsultado] = useState('');
+  const [cepConsultado, setCEPConsultado] = useState([]);
+  const [cepLogradouro, setCEPLogradouro] = useState('');
+  const [cepBairro, setCEPBairro] = useState('');
+  const [cepLocalidade, setCEPLocalidade] = useState('');
+  const [cepUF, setCEPUF] = useState('');
+  const [cepNumero, setCENumero] = useState('');
 
-  const procuraCEP = async (e) => {
+  async function procuraCEP(e) {
     e.preventDefault();
     const resultadoConsulta = await consultaCEP(cep);
 
     setCEPConsultado(resultadoConsulta);
-  };
+    setCEPUF(resultadoConsulta.uf);
+    setCEPLocalidade(resultadoConsulta.localidade);
+    setCEPBairro(resultadoConsulta.bairro);
+    setCEPLogradouro(resultadoConsulta.logradouro);
+  }
 
   return (
-    <form onSubmit={procuraCEP}>
+    <form>
       <section className={styles.container}>
         <Titulo texto="Dados Pessoais" />
+
         <div>
           <InputForm
             id="input-nome"
@@ -54,7 +63,9 @@ function Formulario() {
             }}
           />
         </div>
+
         <Titulo texto="Contatos" />
+
         <div>
           <InputForm
             id="input-email"
@@ -78,30 +89,57 @@ function Formulario() {
             }}
           />
         </div>
+
         <Titulo texto="CEP" />
-        <InputForm
-          id="input-cep"
-          value={cep}
-          label="CEP"
-          onChange={(event) => {
-            setCEP(event.target.value);
-          }}
-        />
+        <div>
+          <InputForm
+            id="input-cep"
+            value={cep}
+            label="CEP"
+            onChange={(event) => {
+              setCEP(event.target.value.replace(/(\d{5})(\d{3})/, '$1-$2'));
+              procuraCEP(event);
+            }}
+          />
+
+          <Button
+            variant="outlined"
+            className={styles.botaoProcurar}
+            onClick={procuraCEP}
+          >
+            Consultar
+          </Button>
+        </div>
+        <InputLeitura id="input-cepUF" label="UF" value={cepUF} />
+        <div>
+          <InputLeitura
+            id="input-cepLocalidade"
+            label="Local"
+            value={cepLocalidade}
+          />
+          <InputLeitura id="input-cepBairro" label="Bairro" value={cepBairro} />
+        </div>
 
         <div>
           <InputLeitura
-            id="input-endereco"
+            id="input-cepEndereco"
             label="Endereço"
-            value={cepConsultado.logradouro}
+            value={cepLogradouro}
+          />
+          <InputForm
+            id="input-cepNumero"
+            value={cepNumero}
+            label="Número"
+            onChange={(event) => {
+              setCENumero(event.target.value);
+            }}
           />
         </div>
 
-        <Button type="submit" variant="contained" endIcon={<SendIcon />}>
+        <Button type="submit" variant="contained" /* endIcon={} */>
           Enviar
         </Button>
       </section>
     </form>
   );
 }
-
-export default Formulario;

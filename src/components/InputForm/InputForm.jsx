@@ -2,6 +2,9 @@ import { TextField } from '@mui/material';
 import styles from './InputForm.module.css';
 
 function InputForm(props) {
+  const widthDinamico = {
+    width: `${props.value.length * 10}px`,
+  };
   return (
     <TextField
       name={props.id}
@@ -12,12 +15,12 @@ function InputForm(props) {
       onChange={props.onChange}
       InputProps={{
         style: {
-          width: props.value.length * 10,
-          minWidth: '315px',
+          ...widthDinamico,
+          minWidth: '250px',
         },
       }}
     />
   );
 }
 
-export default { InputForm };
+export default InputForm;
