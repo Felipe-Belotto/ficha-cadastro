@@ -40,3 +40,18 @@ form {
 .containerBotoes Button{
   flex: 1;
 }
+
+@media screen and (max-width: 768px) {
+
+  form{
+    padding-top: 0;
+  }
+
+  .container{
+    justify-content: space-between;
+  }
+
+  .container div {
+    flex-wrap: wrap;
+  }
+}
