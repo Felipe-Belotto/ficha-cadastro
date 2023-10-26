@@ -6,6 +6,7 @@ export default function SelectForm(props) {
 
   const SelectStyle = {
     color: 'black',
+    backgroundColor: 'white',
   };
 
   const SelectOption = {

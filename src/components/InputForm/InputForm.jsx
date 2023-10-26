@@ -15,6 +15,7 @@ function InputForm(props) {
       onChange={props.onChange}
       InputProps={{
         style: {
+          backgroundColor: 'white',
           flex: '1',
         },
       }}
