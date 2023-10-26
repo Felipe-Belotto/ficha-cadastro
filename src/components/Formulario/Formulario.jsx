@@ -30,7 +30,6 @@ export default function Formulario() {
     e.preventDefault();
     const resultadoConsulta = await consultaCEP(cep);
 
-    setCEPConsultado(resultadoConsulta);
     setCEPUF(resultadoConsulta.uf);
     setCEPLocalidade(resultadoConsulta.localidade);
     setCEPBairro(resultadoConsulta.bairro);
