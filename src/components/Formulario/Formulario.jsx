@@ -8,28 +8,45 @@ import consultaCEP from '../../functions/consultaCEP';
 import SelectForm from '../SelectForm/SelectForm';
 import { NumericFormat } from 'react-number-format';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { CadastroContext } from '../../context/cadastroInfo';
 
 /* 005ca9 */
 
 export default function Formulario() {
-  const [nome, setNome] = useState('');
-  const [cpf, setCPF] = useState('');
-  const [estadoCivil, setEstadoCivil] = useState('');
-  const [pis, setPis] = useState('');
-  const [celular, setCelular] = useState('');
-  const [email, setEmail] = useState('');
-  const [cep, setCEP] = useState('');
-  const [cepLogradouro, setCEPLogradouro] = useState('');
-  const [cepBairro, setCEPBairro] = useState('');
-  const [cepLocalidade, setCEPLocalidade] = useState('');
-  const [cepUF, setCEPUF] = useState('');
-  const [cepNumero, setCENumero] = useState('');
-  const [cepComplemento, setCEPComplemento] = useState('');
-  const [renda, setRenda] = useState([]);
-
-  const [listaRendas, setListaRendas] = useState([]);
-
-  const [status, setStatus] = useState(1);
+  const {
+    nome,
+    cpf,
+    estadoCivil,
+    pis,
+    celular,
+    email,
+    cep,
+    cepLogradouro,
+    cepBairro,
+    cepLocalidade,
+    cepUF,
+    cepNumero,
+    cepComplemento,
+    renda,
+    listaRendas,
+    status,
+    setNome,
+    setCPF,
+    setEstadoCivil,
+    setPis,
+    setCelular,
+    setEmail,
+    setCEP,
+    setCEPLogradouro,
+    setCEPBairro,
+    setCEPLocalidade,
+    setCEPUF,
+    setCENumero,
+    setCEPComplemento,
+    setRenda,
+    setListaRendas,
+    setStatus,
+  } = useContext(CadastroContext);
 
   async function procuraCEP(e) {
     e.preventDefault();
