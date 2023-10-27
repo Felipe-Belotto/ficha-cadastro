@@ -24,7 +24,17 @@ export default function Formulario() {
   const [cepUF, setCEPUF] = useState('');
   const [cepNumero, setCENumero] = useState('');
   const [cepComplemento, setCEPComplemento] = useState('');
-  const [renda, setRenda] = useState('');
+  const [renda, setRenda] = useState([
+    {
+      cnpj: '',
+      admissao: '',
+      documento: '',
+      renda: '',
+    },
+  ]);
+
+  const [listaRendas, setListaRendas] = useState([]);
+
   const [status, setStatus] = useState(1);
 
   async function procuraCEP(e) {
@@ -79,6 +89,7 @@ export default function Formulario() {
                 id="input-CPF"
                 value={cpf}
                 label="CPF"
+                maxLength="14"
                 onChange={(event) => {
                   setCPF(
                     event.target.value
@@ -140,6 +151,7 @@ export default function Formulario() {
                 id="input-celular"
                 value={celular}
                 label="Celular"
+                maxLength="15"
                 onChange={(event) => {
                   setCelular(
                     event.target.value
@@ -164,6 +176,7 @@ export default function Formulario() {
                 id="input-cep"
                 value={cep}
                 label="CEP"
+                maxLength="9"
                 onChange={(event) => {
                   setCEP(event.target.value.replace(/(\d{5})(\d{3})/, '$1-$2'));
                   procuraCEP(event);
@@ -233,6 +246,30 @@ export default function Formulario() {
                 }}
               />
             </div>
+          </section>
+        </section>
+
+        <section
+          className={styles.categoriaContainer}
+          style={{ display: status === 3 ? 'flex' : 'none' }}
+        >
+          <Titulo texto="Renda" />
+
+          <section className={styles.preencherContainer}>
+            <InputForm
+              id="input-cnpj"
+              value={renda.cnpj}
+              label="CNPJ"
+              maxLength="18"
+              onChange={(event) => {
+                const atualizaRenda = { ...renda };
+                atualizaRenda.cnpj = event.target.value.replace(
+                  /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,
+                  '$1.$2.$3/$4-$5',
+                );
+                setRenda(atualizaRenda);
+              }}
+            />
           </section>
         </section>
 
