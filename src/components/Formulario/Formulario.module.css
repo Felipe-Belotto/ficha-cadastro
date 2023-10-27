@@ -1,15 +1,16 @@
 form {
-  width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   height: 100%;
   padding-top: 200px;
 }
 
 .container {
-  min-width: 40%;
+  width: 800px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 4px;
 }
 
@@ -27,7 +28,6 @@ form {
 .categoriaContainer{
   background-color: rgba(245, 245, 245, 0.679);
   border-radius: 4px;
-  min-width: 650px;
   min-height: 320px;
   display: flex;
   flex-direction: column;
@@ -53,6 +53,36 @@ form {
   flex: 1;
 }
 
+.listaRendas{
+  max-width: 955px;
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.rendaContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid #333;
+  padding: 8px;
+  border-radius: 16px;
+}
+
+.rendaContainer div{
+  display: flex;
+  gap: 16px;
+}
+
+.listaRendasTitulo{
+  font-size: 16px;
+  background-color: #1f467e ;
+  color: white; 
+  border-radius: 8px;
+  font-style: normal;
+}
+
 @media screen and (max-width: 768px) {
 
   form{
@@ -60,6 +90,7 @@ form {
   }
 
   .container{
+    width: 100%;
     justify-content: space-between;
   }
 

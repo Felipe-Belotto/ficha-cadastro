@@ -7,6 +7,7 @@ import { Button, MenuItem, TextField } from '@mui/material';
 import consultaCEP from '../../functions/consultaCEP';
 import SelectForm from '../SelectForm/SelectForm';
 import { NumericFormat } from 'react-number-format';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 /* 005ca9 */
 
@@ -24,14 +25,7 @@ export default function Formulario() {
   const [cepUF, setCEPUF] = useState('');
   const [cepNumero, setCENumero] = useState('');
   const [cepComplemento, setCEPComplemento] = useState('');
-  const [renda, setRenda] = useState([
-    {
-      cnpj: '',
-      admissao: '',
-      documento: '',
-      renda: '',
-    },
-  ]);
+  const [renda, setRenda] = useState([]);
 
   const [listaRendas, setListaRendas] = useState([]);
 
@@ -63,6 +57,18 @@ export default function Formulario() {
     const url =
       'https://buscacepinter.correios.com.br/app/endereco/index.php?t';
     window.open(url, '_blank');
+  }
+
+  const materialUITextFieldProps = {
+    id: 'filled-multiline-flexible',
+    label: 'Renda',
+    variant: 'outlined',
+  };
+
+  function adicionaRenda(event) {
+    const listaAtualizada = [...listaRendas, renda];
+    setListaRendas(listaAtualizada);
+    console.log(listaRendas);
   }
 
   return (
@@ -107,6 +113,7 @@ export default function Formulario() {
               <SelectForm
                 id="input-estadoCivil"
                 value={estadoCivil}
+                label="Estado civil"
                 onChange={(event) => {
                   setEstadoCivil(event.target.value);
                 }}
@@ -286,7 +293,23 @@ export default function Formulario() {
                 }}
               />
             </div>
+
             <div>
+              <SelectForm
+                id="input-tipoRenda"
+                label="Tipo"
+                value={renda.tipo}
+                onChange={(event) => {
+                  const atualizaRenda = { ...renda };
+                  atualizaRenda.tipo = event.target.value;
+                  setRenda(atualizaRenda);
+                }}
+              >
+                <MenuItem value="Imposto de renda">Imposto de renda</MenuItem>
+                <MenuItem value="CLT">CLT</MenuItem>
+                <MenuItem value="Pró labore">Pró labore</MenuItem>
+              </SelectForm>
+
               <NumericFormat
                 value={renda.renda}
                 displayType={'input'}
@@ -296,6 +319,7 @@ export default function Formulario() {
                 fixedDecimalScale={true}
                 prefix={'R$ '}
                 customInput={TextField}
+                {...materialUITextFieldProps}
                 onValueChange={(values) => {
                   const { formattedValue } = values;
                   setRenda((prevRenda) => ({
@@ -305,6 +329,20 @@ export default function Formulario() {
                 }}
               />
             </div>
+            <Button
+              variant="outlined"
+              onClick={adicionaRenda}
+              style={{
+                alignSelf: 'center',
+                width: '50%',
+                backgroundColor: '#1f467e',
+                color: 'white',
+                display: 'flex',
+                gap: '10px',
+              }}
+            >
+              Adicionar <AddCircleIcon />
+            </Button>
           </section>
         </section>
 
@@ -313,7 +351,7 @@ export default function Formulario() {
             variant="outlined"
             style={{
               display: status === 1 ? 'none' : 'flex',
-              backgroundColor: '#eb0b1b',
+              backgroundColor: '#021c4097',
               color: 'white',
             }}
             onClick={voltar}
@@ -335,6 +373,36 @@ export default function Formulario() {
           </Button>
         </section>
       </section>
+
+      <ul
+        className={styles.listaRendas}
+        style={{ display: status === 3 ? 'flex' : 'none' }}
+      >
+        {listaRendas.map((renda) => (
+          <li className={styles.rendaContainer}>
+            <h1 className={styles.listaRendasTitulo}>{renda.tipo}</h1>
+
+            <div>
+              <InputLeitura
+                id={`cnpjDaEmpresa${renda.cnpj}`}
+                label="CNPJ"
+                value={renda.cnpj}
+              />
+              <InputLeitura
+                key={`admissaoDaEmpresa${renda.cnpj}`}
+                label="Admissao"
+                value={renda.admissao}
+              />
+            </div>
+
+            <InputLeitura
+              key={`rendaDaEmpresa${renda.cnpj}`}
+              label="Renda"
+              value={renda.renda}
+            />
+          </li>
+        ))}
+      </ul>
     </form>
   );
 }

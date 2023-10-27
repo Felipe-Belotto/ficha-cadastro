@@ -16,7 +16,7 @@ export default function SelectForm(props) {
   return (
     <FormControl fullWidth variant="outlined" className={styles.input}>
       <InputLabel id="demo-simple-select-label" style={MenuLabel}>
-        Estado civil
+        {props.label}
       </InputLabel>
       <Select
         id={props.id}
