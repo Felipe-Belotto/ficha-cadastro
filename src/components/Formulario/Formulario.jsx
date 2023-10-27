@@ -195,7 +195,6 @@ export default function Formulario() {
                 className={styles.botaoProcurar}
                 onClick={procuraCEP}
                 style={{
-                  width: '50%',
                   backgroundColor: '#1f467e',
                   color: 'white',
                 }}
