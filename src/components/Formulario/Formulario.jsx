@@ -3,10 +3,10 @@ import styles from './Formulario.module.css';
 import Titulo from '../Titulo/Titulo';
 import InputForm from '../InputForm/InputForm';
 import InputLeitura from '../InputLeitura/InputLeitura';
-import { Button, MenuItem } from '@mui/material';
+import { Button, MenuItem, TextField } from '@mui/material';
 import consultaCEP from '../../functions/consultaCEP';
 import SelectForm from '../SelectForm/SelectForm';
-import SearchIcon from '@mui/icons-material/Search';
+import { NumericFormat } from 'react-number-format';
 
 /* 005ca9 */
 
@@ -256,20 +256,55 @@ export default function Formulario() {
           <Titulo texto="Renda" />
 
           <section className={styles.preencherContainer}>
-            <InputForm
-              id="input-cnpj"
-              value={renda.cnpj}
-              label="CNPJ"
-              maxLength="18"
-              onChange={(event) => {
-                const atualizaRenda = { ...renda };
-                atualizaRenda.cnpj = event.target.value.replace(
-                  /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,
-                  '$1.$2.$3/$4-$5',
-                );
-                setRenda(atualizaRenda);
-              }}
-            />
+            <div>
+              <InputForm
+                id="input-cnpj"
+                value={renda.cnpj}
+                label="CNPJ"
+                maxLength="18"
+                onChange={(event) => {
+                  const atualizaRenda = { ...renda };
+                  atualizaRenda.cnpj = event.target.value.replace(
+                    /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,
+                    '$1.$2.$3/$4-$5',
+                  );
+                  setRenda(atualizaRenda);
+                }}
+              />
+
+              <InputForm
+                id="input-admissao"
+                value={renda.admissao}
+                label="Admissão"
+                maxLength="10"
+                onChange={(event) => {
+                  const atualizaRenda = { ...renda };
+                  atualizaRenda.admissao = event.target.value
+                    .replace(/[^\d]/g, '')
+                    .replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
+                  setRenda(atualizaRenda);
+                }}
+              />
+            </div>
+            <div>
+              <NumericFormat
+                value={renda.renda}
+                displayType={'input'}
+                thousandSeparator="."
+                decimalSeparator=","
+                decimalScale={2}
+                fixedDecimalScale={true}
+                prefix={'R$ '}
+                customInput={TextField}
+                onValueChange={(values) => {
+                  const { formattedValue } = values;
+                  setRenda((prevRenda) => ({
+                    ...prevRenda,
+                    renda: formattedValue,
+                  }));
+                }}
+              />
+            </div>
           </section>
         </section>
 
