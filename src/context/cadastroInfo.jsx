@@ -16,9 +16,9 @@ const CadastroProvider = ({ children }) => {
   const [cepUF, setCEPUF] = useState('');
   const [cepNumero, setCENumero] = useState('');
   const [cepComplemento, setCEPComplemento] = useState('');
-  const [renda, setRenda] = useState(''); // Se for um valor único
-
+  const [renda, setRenda] = useState('');
   const [listaRendas, setListaRendas] = useState([]);
+  const [somaRendas, setSomaRendas] = useState(0);
 
   const [status, setStatus] = useState(1);
 
@@ -37,6 +37,7 @@ const CadastroProvider = ({ children }) => {
     cepNumero,
     cepComplemento,
     renda,
+    somaRendas,
     listaRendas,
     status,
     setNome,
@@ -53,6 +54,7 @@ const CadastroProvider = ({ children }) => {
     setCENumero,
     setCEPComplemento,
     setRenda,
+    setSomaRendas,
     setListaRendas,
     setStatus,
   };

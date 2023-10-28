@@ -3,16 +3,52 @@ import styles from '../Formulario/Formulario.module.css';
 import InputForm from '../InputForm/InputForm';
 import SelectForm from '../SelectForm/SelectForm';
 import Titulo from '../Titulo/Titulo';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { CadastroContext } from '../../context/cadastroInfo';
 import { NumericFormat } from 'react-number-format';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import InputLeitura from '../InputLeitura/InputLeitura';
 
 export default function FormRenda() {
-  const { renda, listaRendas, status, setRenda, setListaRendas } =
-    useContext(CadastroContext);
+  const {
+    renda,
+    listaRendas,
+    status,
+    setRenda,
+    setListaRendas,
+    somaRendas,
+    setSomaRendas,
+  } = useContext(CadastroContext);
+
+  useEffect(() => {
+    const todasRendas = [...listaRendas];
+
+    let totalRendas = 0;
+
+    todasRendas.forEach((renda) => {
+      if (renda.renda) {
+        const valorRenda = Number(
+          renda.renda.replace(/[^\d,]/g, '').replace(',', '.'),
+        );
+        totalRendas += valorRenda;
+      }
+    });
+
+    const totalRendasBRL = totalRendas.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
+
+    setSomaRendas(totalRendasBRL);
+  }, [listaRendas]);
 
   const materialUITextFieldProps = {
+    id: 'filled-multiline-flexible',
+    label: 'Renda',
+    variant: 'outlined',
+  };
+
+  const materialUITotalRendaProps = {
     id: 'filled-multiline-flexible',
     label: 'Renda',
     variant: 'outlined',
@@ -22,7 +58,22 @@ export default function FormRenda() {
     const listaAtualizada = [...listaRendas, renda];
     setListaRendas(listaAtualizada);
     console.log(listaRendas);
+
+    const rendaVazia = {
+      cnpj: '',
+      admissao: '',
+      tipo: '',
+      renda: '',
+    };
+
+    setRenda(rendaVazia);
   }
+
+  const valorNumerico = Number(
+    String(somaRendas)
+      .replace(/[^\d,]/g, '')
+      .replace(',', '.'),
+  );
   return (
     <section
       className={styles.categoriaContainer}
@@ -103,6 +154,7 @@ export default function FormRenda() {
           style={{
             alignSelf: 'center',
             width: '50%',
+            height: '50px',
             backgroundColor: '#1f467e',
             color: 'white',
             display: 'flex',
@@ -111,6 +163,22 @@ export default function FormRenda() {
         >
           Adicionar <AddCircleIcon />
         </Button>
+        <div>
+          <InputLeitura
+            id={`totalRendas`}
+            label="Renda total"
+            value={somaRendas}
+          />
+
+          <InputLeitura
+            id={`capacidadePagamento`}
+            label="Capacidade de pagamento (30%)"
+            value={Number(valorNumerico * 0.3).toLocaleString('pt-BR', {
+              style: 'currency',
+              currency: 'BRL',
+            })}
+          />
+        </div>
       </section>
     </section>
   );
