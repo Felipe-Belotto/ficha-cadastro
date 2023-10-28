@@ -1,11 +1,11 @@
-import { Button, MenuItem } from '@mui/material';
+import { Button } from '@mui/material';
 import styles from '../Formulario/Formulario.module.css';
 import InputForm from '../InputForm/InputForm';
-import SelectForm from '../SelectForm/SelectForm';
 import Titulo from '../Titulo/Titulo';
 import { useContext } from 'react';
 import { CadastroContext } from '../../context/cadastroInfo';
 import InputLeitura from '../InputLeitura/InputLeitura';
+import consultaCEP from '../../functions/consultaCEP.jsx';
 
 export default function FormEndereco() {
   const {
