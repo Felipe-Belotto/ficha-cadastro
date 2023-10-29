@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import styles from './PaginaResultado.module.css';
 import { CadastroContext } from '../../context/cadastroInfo';
-import BotoesEtapas from '../botoesEtapas/botoesEtapas';
+import BotoesEtapas from '../BotoesEtapas/BotoesEtapas';
 
 export default function PaginaResultado() {
   const {

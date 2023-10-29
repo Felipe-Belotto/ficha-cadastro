@@ -8,7 +8,7 @@ import FormEndereco from '../FormEndereco/FormEndereco';
 import FormRenda from '../FormRenda/FormRenda';
 import FormProposta from '../FormProposta/FormProposta';
 import PaginaResultado from '../PaginaResultado/PaginaResultado';
-import BotoesEtapas from '../botoesEtapas/botoesEtapas';
+import BotoesEtapas from '../BotoesEtapas/BotoesEtapas.jsx';
 
 /* 005ca9 */
 
