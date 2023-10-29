@@ -101,7 +101,7 @@ export default function FormProposta() {
             {...inputFProps}
             onValueChange={(values) => {
               const { formattedValue } = values;
-              financiamento(formattedValue);
+              setFinanciamento(formattedValue);
             }}
           />
         </div>

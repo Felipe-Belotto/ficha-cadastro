@@ -1,15 +1,21 @@
 .paginaResultado{
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: whitesmoke;
 }
 
 .conteudo{
   width: 1000px;
+  min-height: calc(100vh - 2px);
   padding: 0 16px;
+  gap: 8px;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background-color: white;
 }
 
 .titulo{
@@ -17,35 +23,45 @@
   justify-content: center;
   align-items: center;
   font-size: 32px;
-  padding: 16px 0;
-  color: #070707;
-  background-color: rgba(218, 218, 218, 0.527);
+  padding: 8px 0;
+  margin: 8px 0;
+  color: #ffffff;
+  background-color: #333;
   font-weight: 500;
+  border-radius: 4px;
 }
 
 .container{
+  width: 100%;
   background-color: rgb(255, 255, 255);
 }
 
 .dadosTitulo{
   font-size: 26px;
-  padding: 16px 0;
+  padding: 8px 4px;
+  margin: 8px 0;
   font-weight: 500;
-  color: #606060;
+  color: #000000;
+ background-color: #60606022;
 }
 
 .dadosContainer{
+  width: 100%;
   display: flex;
   justify-content: space-between;
+  gap: 32px;
+  padding: 8px 0;
 }
 
 .dadosContainer div {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 16px;
 }
 
 .dadosInfo{
+  width: max-content;
   font-size: 18px;
   color: rgb(0, 0, 0);
   font-weight: 700;
@@ -56,15 +72,40 @@
   font-weight: normal;
 }
 
+.listaRendas{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.itemRenda{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid #333;
+  border-radius: 4px;
+}
+
+.somaRendas{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 0 8px 0;
+}
+
 @media screen and (max-width: 768px) {
   .conteudo{
-    width: 1000px;
-    padding: 0 16px;
+    width: 100%;
+    padding: 0;
     display: flex;
     flex-direction: column;
     gap: 32px;
   }
-  
+
   .dadosInfo{
     font-size: 14px;
     color: rgb(0, 0, 0);

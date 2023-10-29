@@ -15,18 +15,6 @@ import BotoesEtapas from '../BotoesEtapas/BotoesEtapas';
 export default function Formulario() {
   const { status, setStatus, listaRendas } = useContext(CadastroContext);
 
-  function voltar() {
-    if (status != 1 && status >= 1) {
-      setStatus(status - 1);
-    }
-  }
-
-  function avancar() {
-    if (status >= 1 && status < 5) {
-      setStatus(status + 1);
-    }
-  }
-
   return (
     <>
       <form style={{ display: status < 5 ? 'flex' : 'none' }}>
@@ -35,34 +23,9 @@ export default function Formulario() {
           <FormEndereco />
           <FormRenda />
           <FormProposta />
-
-          <section className={styles.containerBotoes}>
-            <Button
-              variant="outlined"
-              style={{
-                display: status === 1 ? 'none' : 'flex',
-                backgroundColor: '#021c4097',
-                color: 'white',
-              }}
-              onClick={voltar}
-            >
-              Voltar
-            </Button>
-
-            <Button
-              variant="outlined"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                backgroundColor: '#1f467e',
-                color: 'white',
-              }}
-              onClick={avancar}
-            >
-              Avançar
-            </Button>
-          </section>
         </section>
+
+        <BotoesEtapas />
 
         <ul
           className={styles.listaRendas}
@@ -94,6 +57,7 @@ export default function Formulario() {
           ))}
         </ul>
       </form>
+
       <PaginaResultado />
     </>
   );
