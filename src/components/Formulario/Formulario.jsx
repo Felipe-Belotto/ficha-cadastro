@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './Formulario.module.css';
 import InputLeitura from '../InputLeitura/InputLeitura';
 import { Button } from '@mui/material';
-
 import { CadastroContext } from '../../context/cadastroInfo';
 import FormPessoal from '../FormPessoal/FormPessoal';
 import FormEndereco from '../FormEndereco/FormEndereco';
 import FormRenda from '../FormRenda/FormRenda';
+import FormProposta from '../FormProposta/FormProposta';
 
 /* 005ca9 */
 
@@ -31,6 +31,7 @@ export default function Formulario() {
         <FormPessoal />
         <FormEndereco />
         <FormRenda />
+        <FormProposta />
 
         <section className={styles.containerBotoes}>
           <Button

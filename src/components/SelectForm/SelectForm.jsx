@@ -4,12 +4,12 @@ import { FormControl, InputLabel, Select } from '@mui/material';
 export default function SelectForm(props) {
   const MenuLabel = {};
 
-  const SelectStyle = {
+  const selectStyle = {
     color: 'black',
     backgroundColor: 'white',
   };
 
-  const SelectOption = {
+  const selectOptionStyle = {
     color: 'black',
     backgroundColor: 'white',
   };
@@ -21,11 +21,11 @@ export default function SelectForm(props) {
       <Select
         id={props.id}
         label={props.id}
-        style={SelectStyle}
+        style={selectStyle}
         onChange={props.onChange}
         value={props.value}
         required
-        MenuProps={{ PaperProps: { style: SelectOption } }}
+        MenuProps={{ PaperProps: { style: selectOptionStyle } }}
       >
         {props.children}
       </Select>

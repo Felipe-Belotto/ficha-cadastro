@@ -42,10 +42,18 @@ export default function FormRenda() {
     setSomaRendas(totalRendasBRL);
   }, [listaRendas]);
 
-  const materialUITextFieldProps = {
+  const inputRendaProps = {
     id: 'filled-multiline-flexible',
     label: 'Renda',
     variant: 'outlined',
+    InputProps: {
+      inputProps: {
+        style: {
+          backgroundColor: 'white',
+          flex: '1',
+        },
+      },
+    },
   };
 
   const materialUITotalRendaProps = {
@@ -138,7 +146,7 @@ export default function FormRenda() {
             fixedDecimalScale={true}
             prefix={'R$ '}
             customInput={TextField}
-            {...materialUITextFieldProps}
+            {...inputRendaProps}
             onValueChange={(values) => {
               const { formattedValue } = values;
               setRenda((prevRenda) => ({
