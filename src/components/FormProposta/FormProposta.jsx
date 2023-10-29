@@ -131,6 +131,7 @@ export default function FormProposta() {
               setEnquadramento(event.target.value);
             }}
           >
+            <MenuItem value="">Sem enquadramento</MenuItem>
             <MenuItem value="MCMV">MCMV</MenuItem>
             <MenuItem value="Pró-cotista">Pró-cotista</MenuItem>
             <MenuItem value="SBPE">SBPE</MenuItem>

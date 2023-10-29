@@ -7,6 +7,7 @@ import FormPessoal from '../FormPessoal/FormPessoal';
 import FormEndereco from '../FormEndereco/FormEndereco';
 import FormRenda from '../FormRenda/FormRenda';
 import FormProposta from '../FormProposta/FormProposta';
+import PaginaResultado from '../PaginaResultado/PaginaResultado';
 
 /* 005ca9 */
 
@@ -14,82 +15,85 @@ export default function Formulario() {
   const { status, setStatus, listaRendas } = useContext(CadastroContext);
 
   function voltar() {
-    if (status != 1 && status >= 1 && status <= 5) {
+    if (status != 1 && status >= 1) {
       setStatus(status - 1);
     }
   }
 
   function avancar() {
-    if (status >= 1 && status <= 5) {
+    if (status >= 1 && status < 5) {
       setStatus(status + 1);
     }
   }
 
   return (
-    <form>
-      <section className={styles.container}>
-        <FormPessoal />
-        <FormEndereco />
-        <FormRenda />
-        <FormProposta />
+    <>
+      <form style={{ display: status < 5 ? 'flex' : 'none' }}>
+        <section className={styles.container}>
+          <FormPessoal />
+          <FormEndereco />
+          <FormRenda />
+          <FormProposta />
 
-        <section className={styles.containerBotoes}>
-          <Button
-            variant="outlined"
-            style={{
-              display: status === 1 ? 'none' : 'flex',
-              backgroundColor: '#021c4097',
-              color: 'white',
-            }}
-            onClick={voltar}
-          >
-            Voltar
-          </Button>
+          <section className={styles.containerBotoes}>
+            <Button
+              variant="outlined"
+              style={{
+                display: status === 1 ? 'none' : 'flex',
+                backgroundColor: '#021c4097',
+                color: 'white',
+              }}
+              onClick={voltar}
+            >
+              Voltar
+            </Button>
 
-          <Button
-            variant="outlined"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              backgroundColor: '#1f467e',
-              color: 'white',
-            }}
-            onClick={avancar}
-          >
-            Avançar
-          </Button>
+            <Button
+              variant="outlined"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: '#1f467e',
+                color: 'white',
+              }}
+              onClick={avancar}
+            >
+              Avançar
+            </Button>
+          </section>
         </section>
-      </section>
 
-      <ul
-        className={styles.listaRendas}
-        style={{ display: status === 3 ? 'flex' : 'none' }}
-      >
-        {listaRendas.map((renda) => (
-          <li className={styles.rendaContainer}>
-            <h1 className={styles.listaRendasTitulo}>{renda.tipo}</h1>
+        <ul
+          className={styles.listaRendas}
+          style={{ display: status === 3 ? 'flex' : 'none' }}
+        >
+          {listaRendas.map((renda) => (
+            <li className={styles.rendaContainer}>
+              <h1 className={styles.listaRendasTitulo}>{renda.tipo}</h1>
 
-            <div>
+              <div>
+                <InputLeitura
+                  id={`cnpjDaEmpresa${renda.cnpj}`}
+                  label="CNPJ"
+                  value={renda.cnpj}
+                />
+                <InputLeitura
+                  key={`admissaoDaEmpresa${renda.cnpj}`}
+                  label="Admissao"
+                  value={renda.admissao}
+                />
+              </div>
+
               <InputLeitura
-                id={`cnpjDaEmpresa${renda.cnpj}`}
-                label="CNPJ"
-                value={renda.cnpj}
+                key={`rendaDaEmpresa${renda.cnpj}`}
+                label="Renda"
+                value={renda.renda}
               />
-              <InputLeitura
-                key={`admissaoDaEmpresa${renda.cnpj}`}
-                label="Admissao"
-                value={renda.admissao}
-              />
-            </div>
-
-            <InputLeitura
-              key={`rendaDaEmpresa${renda.cnpj}`}
-              label="Renda"
-              value={renda.renda}
-            />
-          </li>
-        ))}
-      </ul>
-    </form>
+            </li>
+          ))}
+        </ul>
+      </form>
+      <PaginaResultado />
+    </>
   );
 }
