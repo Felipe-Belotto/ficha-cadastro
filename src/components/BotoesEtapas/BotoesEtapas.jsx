@@ -37,7 +37,7 @@ export default function BotoesEtapas() {
         variant="outlined"
         style={{
           minWidth: '150px',
-          display: 'flex',
+          display: status === 5 ? 'none' : 'flex',
           alignItems: 'center',
           backgroundColor: '#1f467e',
           color: 'white',
