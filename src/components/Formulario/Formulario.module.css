@@ -103,3 +103,9 @@ form {
     min-height: 100%;
   }
 }
+
+@media print {
+  .containerBotoes {
+    display: none;
+  }
+ }
