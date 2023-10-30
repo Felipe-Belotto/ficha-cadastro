@@ -70,7 +70,7 @@ export default function FormRenda() {
     const rendaVazia = {
       cnpj: '',
       admissao: '',
-      tipo: '',
+      tipo: renda.tipo,
       renda: '',
     };
 
@@ -135,6 +135,7 @@ export default function FormRenda() {
             <MenuItem value="Imposto de renda">Imposto de renda</MenuItem>
             <MenuItem value="CLT">CLT</MenuItem>
             <MenuItem value="Pró labore">Pró labore</MenuItem>
+            <MenuItem value="Informal">Informal</MenuItem>
           </SelectForm>
 
           <NumericFormat

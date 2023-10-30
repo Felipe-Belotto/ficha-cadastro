@@ -76,6 +76,10 @@ form {
 }
 
 .listaRendasTitulo{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 32px;
   font-size: 16px;
   background-color: #1f467e ;
   color: white; 

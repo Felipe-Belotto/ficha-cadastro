@@ -9,11 +9,13 @@ import FormRenda from '../FormRenda/FormRenda';
 import FormProposta from '../FormProposta/FormProposta';
 import PaginaResultado from '../PaginaResultado/PaginaResultado';
 import BotoesEtapas from '../BotoesEtapas/BotoesEtapas.jsx';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 /* 005ca9 */
 
 export default function Formulario() {
-  const { status, setStatus, listaRendas } = useContext(CadastroContext);
+  const { status, setStatus, listaRendas, setListaRendas } =
+    useContext(CadastroContext);
 
   return (
     <>
@@ -33,8 +35,35 @@ export default function Formulario() {
         >
           {listaRendas.map((renda) => (
             <li className={styles.rendaContainer}>
-              <h1 className={styles.listaRendasTitulo}>{renda.tipo}</h1>
+              <div>
+                <h1 className={styles.listaRendasTitulo}>
+                  {renda.tipo}{' '}
+                  <Button
+                    variant="outlined"
+                    style={{
+                      width: 'auto',
+                      display: 'flex',
+                      alignItems: 'center',
+                      backgroundColor: 'transparent',
+                      color: 'white',
+                      cursor: 'pointer',
+                      border: 'none',
+                    }}
+                    onClick={() => {
+                      confirm('deseja apagar a renda selecionada ?');
 
+                      if (confirm) {
+                        const novaLista = listaRendas.filter(
+                          (rendas) => rendas !== renda,
+                        );
+                        setListaRendas(novaLista);
+                      }
+                    }}
+                  >
+                    <DeleteIcon />
+                  </Button>
+                </h1>
+              </div>
               <div>
                 <InputLeitura
                   id={`cnpjDaEmpresa${renda.cnpj}`}
