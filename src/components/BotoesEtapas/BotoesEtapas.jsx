@@ -54,45 +54,46 @@ export default function BotoesEtapas() {
   function avancar() {
     if (status === 3) {
       /* Cria um proponente */
-      const Proponente = {
-        nome: nome,
-        cpf: cpf,
-        estadoCivil: estadoCivil,
-        pis: pis,
-        celular: celular,
-        email: email,
-        cep: cep,
-        cepLogradouro: cepLogradouro,
-        cepBairro: cepBairro,
-        cepLocalidade: cepLocalidade,
-        cepUF: cepUF,
-        cepNumero: cepNumero,
-        cepComplemento: cepComplemento,
-        somaRendas: somaRendas,
-        listaRendas: listaRendas,
-      };
+      if (nome != '' && cpf != '') {
+        const Proponente = {
+          nome: nome,
+          cpf: cpf,
+          estadoCivil: estadoCivil,
+          pis: pis,
+          celular: celular,
+          email: email,
+          cep: cep,
+          cepLogradouro: cepLogradouro,
+          cepBairro: cepBairro,
+          cepLocalidade: cepLocalidade,
+          cepUF: cepUF,
+          cepNumero: cepNumero,
+          cepComplemento: cepComplemento,
+          somaRendas: somaRendas,
+          listaRendas: listaRendas,
+        };
 
-      setListaProponentes([...listaProponentes, Proponente]);
+        setListaProponentes([...listaProponentes, Proponente]);
 
-      /* Apagar estados anteriores */
+        /* Apagar estados anteriores */
 
-      setNome('');
-      setCPF('');
-      setEstadoCivil('');
-      setPis('');
-      setCelular('');
-      setEmail('');
-      setCEP('');
-      setCEPLogradouro('');
-      setCEPBairro('');
-      setCEPLocalidade('');
-      setCEPUF('');
-      setCENumero('');
-      setCEPComplemento('');
-      setRenda('');
-      setSomaRendas('');
-      setListaRendas([]);
-
+        setNome('');
+        setCPF('');
+        setEstadoCivil('');
+        setPis('');
+        setCelular('');
+        setEmail('');
+        setCEP('');
+        setCEPLogradouro('');
+        setCEPBairro('');
+        setCEPLocalidade('');
+        setCEPUF('');
+        setCENumero('');
+        setCEPComplemento('');
+        setRenda('');
+        setSomaRendas('');
+        setListaRendas([]);
+      }
       setStatus(status + 1);
     } else {
       if (status >= 1 && status < 6) {
