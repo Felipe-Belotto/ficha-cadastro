@@ -10,11 +10,13 @@ import FormProposta from '../FormProposta/FormProposta';
 import PaginaResultado from '../PaginaResultado/PaginaResultado';
 import BotoesEtapas from '../BotoesEtapas/BotoesEtapas.jsx';
 import FormProponentes from '../FormProponentes/FormProponentes';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 /* 005ca9 */
 
 export default function Formulario() {
-  const { status, setStatus, listaRendas } = useContext(CadastroContext);
+  const { status, setStatus, listaRendas, setListaRendas } =
+    useContext(CadastroContext);
 
   return (
     <>
@@ -36,7 +38,29 @@ export default function Formulario() {
           {status === 3
             ? listaRendas.map((renda, index) => (
                 <li key={index} className={styles.rendaContainer}>
-                  <h1 className={styles.listaRendasTitulo}>{renda.tipo}</h1>
+                  <h1 className={styles.listaRendasTitulo}>
+                    {renda.tipo}{' '}
+                    <Button
+                      variant="outlined"
+                      style={{
+                        minWidth: 'auto',
+                        display: status === 1 || status === 4 ? 'none' : 'flex',
+                        backgroundColor: 'transparent',
+                        color: 'white',
+                        cursor: 'pointer',
+                        border: 'none',
+                      }}
+                      onClick={() => {
+                        confirm(`Deseja apagar a renda atual ? ${renda.renda}`)
+                          ? setListaRendas((listaAnterior) =>
+                              listaAnterior.filter((itens) => itens !== renda),
+                            )
+                          : '';
+                      }}
+                    >
+                      <DeleteIcon />
+                    </Button>
+                  </h1>
 
                   <div>
                     <InputLeitura

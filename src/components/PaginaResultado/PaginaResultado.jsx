@@ -5,22 +5,7 @@ import BotoesEtapas from '../BotoesEtapas/BotoesEtapas';
 
 export default function PaginaResultado() {
   const {
-    nome,
-    cpf,
-    estadoCivil,
-    pis,
-    celular,
-    email,
-    cep,
-    cepLogradouro,
-    cepBairro,
-    cepLocalidade,
-    cepUF,
-    cepNumero,
-    cepComplemento,
-    renda,
-    somaRendas,
-    listaRendas,
+    listaProponentes,
     status,
     compraEVenda,
     financiamento,
@@ -29,13 +14,14 @@ export default function PaginaResultado() {
     observacao,
   } = useContext(CadastroContext);
 
-  const todasrendas = [...listaRendas];
+  const valorNumerico = (referencia) =>
+    Number(
+      String(referencia)
+        .replace(/[^\d,]/g, '')
+        .replace(',', '.'),
+    );
 
-  const valorNumerico = Number(
-    String(somaRendas)
-      .replace(/[^\d,]/g, '')
-      .replace(',', '.'),
-  );
+  const todosProponentes = [...listaProponentes];
 
   return (
     <>
@@ -46,95 +32,107 @@ export default function PaginaResultado() {
         <div class={styles.conteudo}>
           <h5 className={styles.titulo}>Ficha cadastro</h5>
 
-          <section className={styles.container}>
-            <h6 class={styles.dadosTitulo}>Pessoal</h6>
-            <section className={styles.dadosContainer}>
-              <div>
-                <p className={styles.dadosInfo}>
-                  Nome: <span>{nome}</span>
-                </p>
-                <p className={styles.dadosInfo}>
-                  Estado civil: <span>{estadoCivil}</span>
-                </p>
-                <p className={styles.dadosInfo}>
-                  Email: <span>{email}</span>
-                </p>
-              </div>
-              <div>
-                <p className={styles.dadosInfo}>
-                  CPF: <span>{cpf}</span>
-                </p>
+          {todosProponentes.map((proponente, index) => (
+            <>
+              <section className={styles.container}>
+                <h6 class={styles.dadosTitulo}>
+                  Proponente {index + 1 === 1 ? 'principal' : index + 1}
+                </h6>
+                <section className={styles.dadosContainer}>
+                  <div>
+                    <p className={styles.dadosInfo}>
+                      Nome: <span>{proponente.nome}</span>
+                    </p>
+                    <p className={styles.dadosInfo}>
+                      Estado civil: <span>{proponente.estadoCivil}</span>
+                    </p>
+                    <p className={styles.dadosInfo}>
+                      Email: <span>{proponente.email}</span>
+                    </p>
+                  </div>
+                  <div>
+                    <p className={styles.dadosInfo}>
+                      CPF: <span>{proponente.cpf}</span>
+                    </p>
 
-                <p className={styles.dadosInfo}>
-                  PIS: <span>{pis}</span>
-                </p>
+                    <p className={styles.dadosInfo}>
+                      PIS: <span>{proponente.pis}</span>
+                    </p>
 
-                <p className={styles.dadosInfo}>
-                  Celular <span>{celular}</span>
-                </p>
-              </div>
-            </section>
-          </section>
+                    <p className={styles.dadosInfo}>
+                      Celular <span>{proponente.celular}</span>
+                    </p>
+                  </div>
+                </section>
+              </section>
 
-          <section className={styles.container}>
-            <h6 class={styles.dadosTitulo}>Endereço</h6>
-            <section className={styles.dadosContainer}>
-              <div>
-                <p className={styles.dadosInfo}>
-                  CEP: <span>{cep}</span>
-                </p>
-                <p className={styles.dadosInfo}>
-                  Endereço:{' '}
-                  <span>
-                    {cepLogradouro}, {cepNumero}
-                    {cepComplemento !== '' ? `, ${cepComplemento}` : ''},{' '}
-                    {cepBairro}, {cepLocalidade} /{cepUF}
-                  </span>
-                </p>
-              </div>
-            </section>
-          </section>
+              <section className={styles.container}>
+                <h6 class={styles.dadosTitulo}>Endereço</h6>
+                <section className={styles.dadosContainer}>
+                  <div>
+                    <p className={styles.dadosInfo}>
+                      CEP: <span>{proponente.cep}</span>
+                    </p>
+                    <p className={styles.dadosInfo}>
+                      Endereço:
+                      <span>
+                        {proponente.cepLogradouro}, {proponente.cepNumero}
+                        {proponente.cepComplemento !== ''
+                          ? `, ${proponente.cepComplemento}`
+                          : ''}
+                        , {proponente.cepBairro}, {proponente.cepLocalidade} /
+                        {proponente.cepUF}
+                      </span>
+                    </p>
+                  </div>
+                </section>
+              </section>
 
-          <section className={styles.container}>
-            <h6 class={styles.dadosTitulo}>Renda</h6>
-            <section className={styles.dadosContainer}>
-              <div>
-                <div class={styles.somaRendas}>
-                  <p className={styles.dadosInfo}>
-                    Somatório das rendas: <span>{somaRendas}</span>
-                  </p>
-                  <p className={styles.dadosInfo}>
-                    Capacidade de pagamento:{' '}
-                    <span>
-                      {Number(valorNumerico * 0.3).toLocaleString('pt-BR', {
-                        style: 'currency',
-                        currency: 'BRL',
-                      })}
-                    </span>
-                  </p>
-                </div>
-
-                <ul className={styles.listaRendas}>
-                  {todasrendas.map((renda) => (
-                    <li key={renda.cnpj} className={styles.itemRenda}>
+              <section className={styles.container}>
+                <h6 class={styles.dadosTitulo}>Renda</h6>
+                <section className={styles.dadosContainer}>
+                  <div>
+                    {/*  <div class={styles.somaRendas}>
                       <p className={styles.dadosInfo}>
-                        Tipo: <span>{renda.tipo}</span>
+                        Somatório das rendas:{' '}
+                        <span>{proponente.somaRendas}</span>
                       </p>
                       <p className={styles.dadosInfo}>
-                        CNPJ: <span>{renda.cnpj}</span>
+                        Capacidade de pagamento:
+                        <span>
+                          {Number(
+                            valorNumerico(proponente.somaRendas) * 0.3,
+                          ).toLocaleString('pt-BR', {
+                            style: 'currency',
+                            currency: 'BRL',
+                          })}
+                        </span>
                       </p>
-                      <p className={styles.dadosInfo}>
-                        Admissão: <span>{renda.admissao}</span>
-                      </p>
-                      <p className={styles.dadosInfo}>
-                        Renda: <span>{renda.renda}</span>
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </section>
-          </section>
+                    </div> */}
+
+                    <ul className={styles.listaRendas}>
+                      {proponente.listaRendas.map((renda) => (
+                        <li key={renda.cnpj} className={styles.itemRenda}>
+                          <p className={styles.dadosInfo}>
+                            Tipo: <span>{renda.tipo}</span>
+                          </p>
+                          <p className={styles.dadosInfo}>
+                            CNPJ: <span>{renda.cnpj}</span>
+                          </p>
+                          <p className={styles.dadosInfo}>
+                            Admissão: <span>{renda.admissao}</span>
+                          </p>
+                          <p className={styles.dadosInfo}>
+                            Renda: <span>{renda.renda}</span>
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </section>
+              </section>
+            </>
+          ))}
 
           <section className={styles.container}>
             <h6 className={styles.dadosTitulo}>Proposta</h6>

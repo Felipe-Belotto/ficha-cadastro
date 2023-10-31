@@ -76,7 +76,6 @@ form {
 }
 
 .listaRendasTitulo{
-  width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 4px 32px;
