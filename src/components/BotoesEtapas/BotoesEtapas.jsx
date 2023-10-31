@@ -44,11 +44,7 @@ export default function BotoesEtapas() {
   } = useContext(CadastroContext);
 
   function voltar() {
-    if (status != 3) {
-      if (status !== 1 && status >= 1) {
-        setStatus(status - 1);
-      }
-    }
+    setStatus(status - 1);
   }
 
   function avancar() {
@@ -136,7 +132,7 @@ export default function BotoesEtapas() {
         }}
         onClick={avancar}
       >
-        Avançar
+        {status === 3 ? 'Salvar' : 'Avançar'}
       </Button>
     </section>
   );

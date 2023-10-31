@@ -1,7 +1,8 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styles from './PaginaResultado.module.css';
 import { CadastroContext } from '../../context/cadastroInfo';
 import BotoesEtapas from '../BotoesEtapas/BotoesEtapas';
+import ConverterBRL from '../../functions/converterBRL';
 
 export default function PaginaResultado() {
   const {
@@ -14,6 +15,8 @@ export default function PaginaResultado() {
     observacao,
   } = useContext(CadastroContext);
 
+  const [somatorioDasRendas, setSomatorioDasRendas] = useState(0);
+
   const valorNumerico = (referencia) =>
     Number(
       String(referencia)
@@ -22,6 +25,26 @@ export default function PaginaResultado() {
     );
 
   const todosProponentes = [...listaProponentes];
+
+  const listaTodasRendas = [];
+  let somatorioRendas = 0;
+
+  todosProponentes.forEach((proponente) => {
+    const rendasDoProponente = proponente.listaRendas.map((renda) =>
+      valorNumerico(renda.renda),
+    );
+    listaTodasRendas.push(...rendasDoProponente);
+  });
+
+  useEffect(() => {
+    let somatorioRendas = 0;
+
+    listaTodasRendas.forEach((renda) => {
+      somatorioRendas = somatorioRendas + renda;
+    });
+
+    setSomatorioDasRendas(somatorioRendas);
+  }, [listaTodasRendas]);
 
   return (
     <>
@@ -92,24 +115,11 @@ export default function PaginaResultado() {
                 <h6 class={styles.dadosTitulo}>Renda</h6>
                 <section className={styles.dadosContainer}>
                   <div>
-                    {/*  <div class={styles.somaRendas}>
+                    <div class={styles.somaRendas}>
                       <p className={styles.dadosInfo}>
-                        Somatório das rendas:{' '}
-                        <span>{proponente.somaRendas}</span>
+                        Renda total: <span>{proponente.somaRendas}</span>
                       </p>
-                      <p className={styles.dadosInfo}>
-                        Capacidade de pagamento:
-                        <span>
-                          {Number(
-                            valorNumerico(proponente.somaRendas) * 0.3,
-                          ).toLocaleString('pt-BR', {
-                            style: 'currency',
-                            currency: 'BRL',
-                          })}
-                        </span>
-                      </p>
-                    </div> */}
-
+                    </div>
                     <ul className={styles.listaRendas}>
                       {proponente.listaRendas.map((renda) => (
                         <li key={renda.cnpj} className={styles.itemRenda}>
@@ -136,6 +146,16 @@ export default function PaginaResultado() {
 
           <section className={styles.container}>
             <h6 className={styles.dadosTitulo}>Proposta</h6>
+            <div class={styles.somaRendas}>
+              <p className={styles.dadosInfo}>
+                Somatório de todas as rendas:{' '}
+                <span>{ConverterBRL(ConverterBRL(somatorioDasRendas))}</span>
+              </p>
+              <p className={styles.dadosInfo}>
+                Valor da prestação máxima:{' '}
+                <span>{ConverterBRL(somatorioDasRendas * 0.3)}</span>
+              </p>
+            </div>
             <section className={styles.dadosContainer}>
               <div>
                 <p className={styles.dadosInfo}>
