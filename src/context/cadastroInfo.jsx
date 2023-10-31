@@ -39,7 +39,7 @@ const CadastroProvider = ({ children }) => {
   const [observacao, setObservacao] = useState('');
 
   /* Status */
-  const [status, setStatus] = useState(1);
+  const [status, setStatus] = useState(4);
 
   const contextValue = {
     nome,

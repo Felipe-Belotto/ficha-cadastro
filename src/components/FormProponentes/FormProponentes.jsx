@@ -78,6 +78,7 @@ export default function FormProponentes() {
           style={{
             alignSelf: 'center',
             width: '50%',
+            minWidth: '250px',
             height: '50px',
             backgroundColor: '#1f467e',
             color: 'white',
@@ -99,6 +100,7 @@ export default function FormProponentes() {
             style={{
               alignSelf: 'center',
               width: '50%',
+              minWidth: '250px',
               height: '50px',
               backgroundColor: '#1f467e',
               color: 'white',
