@@ -9,7 +9,7 @@ import { NumericFormat } from 'react-number-format';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import InputLeitura from '../InputLeitura/InputLeitura';
 import SubTitulo from '../SubTitulo/SubTitulo';
-import ConverterBRL from '../../functions/converterBRL';
+import ConverterBRL from '../../functions/ConverterBRL';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function FormRenda() {
