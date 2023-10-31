@@ -29,6 +29,9 @@ const CadastroProvider = ({ children }) => {
   const [listaProponentes, setListaProponentes] = useState([]);
 
   /* Proposta */
+
+  const [tipoImovel, setTipoImovel] = useState('');
+  const [condicaoImovel, setCondicaoImovel] = useState('');
   const [compraEVenda, setCompraEVenda] = useState('');
   const [financiamento, setFinanciamento] = useState('');
   const [enquadramento, setEnquadramento] = useState('');
@@ -57,6 +60,8 @@ const CadastroProvider = ({ children }) => {
     listaRendas,
     listaProponentes,
     status,
+    tipoImovel,
+    condicaoImovel,
     compraEVenda,
     financiamento,
     enquadramento,
@@ -80,6 +85,8 @@ const CadastroProvider = ({ children }) => {
     setListaRendas,
     setStatus,
     setListaProponentes,
+    setCondicaoImovel,
+    setTipoImovel,
     setCompraEVenda,
     setFinanciamento,
     setEnquadramento,

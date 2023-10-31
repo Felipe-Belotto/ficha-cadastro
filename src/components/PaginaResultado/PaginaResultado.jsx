@@ -8,6 +8,8 @@ export default function PaginaResultado() {
   const {
     listaProponentes,
     status,
+    tipoImovel,
+    condicaoImovel,
     compraEVenda,
     financiamento,
     enquadramento,
@@ -97,7 +99,7 @@ export default function PaginaResultado() {
                       CEP: <span>{proponente.cep}</span>
                     </p>
                     <p className={styles.dadosInfo}>
-                      Endereço:
+                      Endereço:{' '}
                       <span>
                         {proponente.cepLogradouro}, {proponente.cepNumero}
                         {proponente.cepComplemento !== ''
@@ -146,7 +148,7 @@ export default function PaginaResultado() {
 
           <section className={styles.container}>
             <h6 className={styles.dadosTitulo}>Proposta</h6>
-            <div class={styles.somaRendas}>
+            <div>
               <p className={styles.dadosInfo}>
                 Somatório de todas as rendas:{' '}
                 <span>{ConverterBRL(ConverterBRL(somatorioDasRendas))}</span>
@@ -156,21 +158,29 @@ export default function PaginaResultado() {
                 <span>{ConverterBRL(somatorioDasRendas * 0.3)}</span>
               </p>
             </div>
+            <div>
+              <p className={styles.dadosInfo}>
+                Imóvel: <span>{tipoImovel}</span>
+              </p>
+              <p className={styles.dadosInfo}>
+                Condição: <span>{condicaoImovel}</span>
+              </p>
+            </div>
             <section className={styles.dadosContainer}>
               <div>
                 <p className={styles.dadosInfo}>
                   Compra e venda: <span>{compraEVenda}</span>
                 </p>
                 <p className={styles.dadosInfo}>
-                  FGTS: <span>{fgts === '' ? 'não se aplica' : fgts}</span>
+                  Financiamento: <span>{financiamento}</span>
                 </p>
               </div>
               <div>
                 <p className={styles.dadosInfo}>
-                  Financiamento: <span>{financiamento}</span>
+                  Enquadramento: <span>{enquadramento}</span>
                 </p>
                 <p className={styles.dadosInfo}>
-                  Enquadramento: <span>{enquadramento}</span>
+                  FGTS: <span>{fgts === '' ? 'não se aplica' : fgts}</span>
                 </p>
               </div>
             </section>
