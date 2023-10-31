@@ -25,6 +25,9 @@ const CadastroProvider = ({ children }) => {
   const [listaRendas, setListaRendas] = useState([]);
   const [somaRendas, setSomaRendas] = useState(0);
 
+  /* Proponentes */
+  const [listaProponentes, setListaProponentes] = useState([]);
+
   /* Proposta */
   const [compraEVenda, setCompraEVenda] = useState('');
   const [financiamento, setFinanciamento] = useState('');
@@ -52,6 +55,7 @@ const CadastroProvider = ({ children }) => {
     renda,
     somaRendas,
     listaRendas,
+    listaProponentes,
     status,
     compraEVenda,
     financiamento,
@@ -75,6 +79,7 @@ const CadastroProvider = ({ children }) => {
     setSomaRendas,
     setListaRendas,
     setStatus,
+    setListaProponentes,
     setCompraEVenda,
     setFinanciamento,
     setEnquadramento,

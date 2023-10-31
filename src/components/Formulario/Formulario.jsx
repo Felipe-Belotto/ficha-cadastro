@@ -9,6 +9,7 @@ import FormRenda from '../FormRenda/FormRenda';
 import FormProposta from '../FormProposta/FormProposta';
 import PaginaResultado from '../PaginaResultado/PaginaResultado';
 import BotoesEtapas from '../BotoesEtapas/BotoesEtapas.jsx';
+import FormProponentes from '../FormProponentes/FormProponentes';
 
 /* 005ca9 */
 
@@ -17,11 +18,12 @@ export default function Formulario() {
 
   return (
     <>
-      <form style={{ display: status < 5 ? 'flex' : 'none' }}>
+      <form style={{ display: status < 6 ? 'flex' : 'none' }}>
         <section className={styles.container}>
           <FormPessoal />
           <FormEndereco />
           <FormRenda />
+          <FormProponentes />
           <FormProposta />
         </section>
 
@@ -31,30 +33,32 @@ export default function Formulario() {
           className={styles.listaRendas}
           style={{ display: status === 3 ? 'flex' : 'none' }}
         >
-          {listaRendas.map((renda) => (
-            <li className={styles.rendaContainer}>
-              <h1 className={styles.listaRendasTitulo}>{renda.tipo}</h1>
+          {status === 3
+            ? listaRendas.map((renda, index) => (
+                <li key={index} className={styles.rendaContainer}>
+                  <h1 className={styles.listaRendasTitulo}>{renda.tipo}</h1>
 
-              <div>
-                <InputLeitura
-                  id={`cnpjDaEmpresa${renda.cnpj}`}
-                  label="CNPJ"
-                  value={renda.cnpj}
-                />
-                <InputLeitura
-                  key={`admissaoDaEmpresa${renda.cnpj}`}
-                  label="Admissao"
-                  value={renda.admissao}
-                />
-              </div>
+                  <div>
+                    <InputLeitura
+                      id={`cnpjDaEmpresa${renda.cnpj}`}
+                      label="CNPJ"
+                      value={renda.cnpj}
+                    />
+                    <InputLeitura
+                      key={`admissaoDaEmpresa${renda.cnpj}`}
+                      label="Admissao"
+                      value={renda.admissao}
+                    />
+                  </div>
 
-              <InputLeitura
-                key={`rendaDaEmpresa${renda.cnpj}`}
-                label="Renda"
-                value={renda.renda}
-              />
-            </li>
-          ))}
+                  <InputLeitura
+                    key={`rendaDaEmpresa${renda.cnpj}`}
+                    label="Renda"
+                    value={renda.renda}
+                  />
+                </li>
+              ))
+            : ''}
         </ul>
       </form>
 

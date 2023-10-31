@@ -67,7 +67,7 @@ export default function FormProposta() {
   return (
     <section
       className={styles.categoriaContainer}
-      style={{ display: status === 4 ? 'flex' : 'none' }}
+      style={{ display: status === 5 ? 'flex' : 'none' }}
     >
       <Titulo texto="Proposta" />
 

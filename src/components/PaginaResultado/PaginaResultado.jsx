@@ -41,7 +41,7 @@ export default function PaginaResultado() {
     <>
       <section
         class={styles.paginaResultado}
-        style={{ display: status === 5 ? 'flex' : 'none' }}
+        style={{ display: status === 6 ? 'flex' : 'none' }}
       >
         <div class={styles.conteudo}>
           <h5 className={styles.titulo}>Ficha cadastro</h5>
