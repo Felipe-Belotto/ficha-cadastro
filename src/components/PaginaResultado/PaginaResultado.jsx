@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import styles from './PaginaResultado.module.css';
 import { CadastroContext } from '../../context/cadastroInfo';
 import BotoesEtapas from '../BotoesEtapas/BotoesEtapas';
-import ConverterBRL from '../../functions/converterBRL';
+import ConverterBRL from '../../functions/ConverterBRL';
 
 export default function PaginaResultado() {
   const {
