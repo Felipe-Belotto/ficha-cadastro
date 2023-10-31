@@ -22,7 +22,7 @@ export default function FormEndereco() {
     setCEPBairro,
     setCEPLocalidade,
     setCEPUF,
-    setCENumero,
+    setCEPNumero,
     setCEPComplemento,
   } = useContext(CadastroContext);
 
@@ -107,7 +107,7 @@ export default function FormEndereco() {
             value={cepNumero}
             label="Número"
             onChange={(event) => {
-              setCENumero(event.target.value);
+              setCEPNumero(event.target.value);
             }}
           />
           <InputForm

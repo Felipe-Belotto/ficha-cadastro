@@ -7,9 +7,60 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Button } from '@mui/material';
 
 export default function FormProponentes() {
-  const { status, setStatus, listaProponentes } = useContext(CadastroContext);
+  const {
+    status,
+    setStatus,
+    listaProponentes,
+    setNome,
+    setCPF,
+    setEstadoCivil,
+    setPis,
+    setCelular,
+    setEmail,
+    setCEP,
+    setCEPLogradouro,
+    setCEPBairro,
+    setCEPLocalidade,
+    setCEPUF,
+    setCEPNumero,
+    setCEPComplemento,
+    setRenda,
+    setSomaRendas,
+    setListaRendas,
+    setListaProponentes,
+  } = useContext(CadastroContext);
 
   const todosProponentes = [...listaProponentes];
+
+  function proponenteInfo(proponente) {
+    setNome(proponente.nome);
+    setCPF(proponente.cpf);
+    setEstadoCivil(proponente.estadoCivil);
+    setPis(proponente.pis);
+    setCelular(proponente.celular);
+    setEmail(proponente.email);
+    setCEP(proponente.cep);
+    setCEPLogradouro(proponente.cepLogradouro);
+    setCEPBairro(proponente.cepBairro);
+    setCEPLocalidade(proponente.cepLocalidade);
+    setCEPUF(proponente.cepUF);
+    setCEPNumero(proponente.cepNumero);
+    setCEPComplemento(proponente.cepComplemento);
+    setSomaRendas(proponente.somaRendas);
+    setListaRendas(proponente.listaRendas);
+
+    setStatus(1);
+
+    const listaParticipantes = [...listaProponentes];
+    listaParticipantes.filter;
+    (participante) => {
+      participante != propoente;
+    };
+
+    setListaProponentes((listaAntiga) =>
+      listaAntiga.filter((item) => item !== proponente),
+    );
+  }
 
   return (
     <section
@@ -42,7 +93,9 @@ export default function FormProponentes() {
           <Button
             key={index}
             variant="outlined"
-            onClick={console.log(Proponente)}
+            onClick={() => {
+              proponenteInfo(Proponente);
+            }}
             style={{
               alignSelf: 'center',
               width: '50%',

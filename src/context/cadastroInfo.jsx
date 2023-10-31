@@ -17,7 +17,7 @@ const CadastroProvider = ({ children }) => {
   const [cepBairro, setCEPBairro] = useState('');
   const [cepLocalidade, setCEPLocalidade] = useState('');
   const [cepUF, setCEPUF] = useState('');
-  const [cepNumero, setCENumero] = useState('');
+  const [cepNumero, setCEPNumero] = useState('');
   const [cepComplemento, setCEPComplemento] = useState('');
 
   /* Renda */
@@ -73,7 +73,7 @@ const CadastroProvider = ({ children }) => {
     setCEPBairro,
     setCEPLocalidade,
     setCEPUF,
-    setCENumero,
+    setCEPNumero,
     setCEPComplemento,
     setRenda,
     setSomaRendas,
