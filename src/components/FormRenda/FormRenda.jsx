@@ -9,7 +9,7 @@ import { NumericFormat } from 'react-number-format';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import InputLeitura from '../InputLeitura/InputLeitura';
 import SubTitulo from '../SubTitulo/SubTitulo';
-import ConverterBRL from '../../functions/ConverterBRL';
+import ConverterBRL from '../../functions/converterBRL';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ConsultaCNPJ from '../../functions/ConsultaCNPJ';
 
