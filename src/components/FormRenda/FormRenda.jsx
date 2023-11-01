@@ -11,6 +11,7 @@ import InputLeitura from '../InputLeitura/InputLeitura';
 import SubTitulo from '../SubTitulo/SubTitulo';
 import ConverterBRL from '../../functions/ConverterBRL';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ConsultaCNPJ from '../../functions/ConsultaCNPJ';
 
 export default function FormRenda() {
   const {
@@ -44,6 +45,12 @@ export default function FormRenda() {
 
     setSomaRendas(totalRendasBRL);
   }, [listaRendas]);
+
+  async function consultarApiCNPJ(CNPJ) {
+    const atualCNPJ = CNPJ.replace(/[\./-]/g, '');
+    await ConsultaCNPJ(atualCNPJ);
+    console.log(atualCNPJ);
+  }
 
   const inputRendaProps = {
     id: 'filled-multiline-flexible',
@@ -110,7 +117,24 @@ export default function FormRenda() {
               }}
             />
 
-            <InputForm
+            <Button
+              variant="outlined"
+              style={{
+                minWidth: 'auto',
+                display: status === 1 || status === 4 ? 'none' : 'flex',
+                backgroundColor: '#1f467e',
+                color: 'white',
+                cursor: 'pointer',
+                border: 'none',
+              }}
+              onClick={() => {
+                consultarApiCNPJ(renda.cnpj);
+              }}
+            >
+              Consultar
+            </Button>
+
+            {/*   <InputForm
               id="input-admissao"
               value={renda.admissao}
               label="Admissão"
@@ -122,7 +146,7 @@ export default function FormRenda() {
                   .replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
                 setRenda(atualizaRenda);
               }}
-            />
+            /> */}
           </div>
 
           <div>
