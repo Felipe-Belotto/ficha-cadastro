@@ -117,7 +117,7 @@ export default function FormRenda() {
               }}
             />
 
-            <Button
+            {/* <Button
               variant="outlined"
               style={{
                 minWidth: 'auto',
@@ -132,9 +132,9 @@ export default function FormRenda() {
               }}
             >
               Consultar
-            </Button>
+            </Button> */}
 
-            {/*   <InputForm
+            <InputForm
               id="input-admissao"
               value={renda.admissao}
               label="Admissão"
@@ -146,7 +146,7 @@ export default function FormRenda() {
                   .replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
                 setRenda(atualizaRenda);
               }}
-            /> */}
+            />
           </div>
 
           <div>
