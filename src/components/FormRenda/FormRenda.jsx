@@ -8,6 +8,7 @@ import { CadastroContext } from '../../context/cadastroInfo';
 import { NumericFormat } from 'react-number-format';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import InputLeitura from '../InputLeitura/InputLeitura';
+import ConverterBRL from '../../functions/ConverterBRL.jsx';
 
 export default function FormRenda() {
   const {
