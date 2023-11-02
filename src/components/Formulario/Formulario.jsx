@@ -10,6 +10,7 @@ import FormProposta from '../FormProposta/FormProposta';
 import PaginaResultado from '../PaginaResultado/PaginaResultado';
 import BotoesEtapas from '../BotoesEtapas/BotoesEtapas.jsx';
 import FormProponentes from '../FormProponentes/FormProponentes';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 /* 005ca9 */
 
