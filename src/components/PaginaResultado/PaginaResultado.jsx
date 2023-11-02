@@ -1,18 +1,23 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styles from './PaginaResultado.module.css';
 import { CadastroContext } from '../../context/cadastroInfo';
 import BotoesEtapas from '../BotoesEtapas/BotoesEtapas';
+import ConverterBRL from '../../functions/ConverterBRL';
 
 export default function PaginaResultado() {
   const {
     listaProponentes,
     status,
+    tipoImovel,
+    condicaoImovel,
     compraEVenda,
     financiamento,
     enquadramento,
     fgts,
     observacao,
   } = useContext(CadastroContext);
+
+  const [somatorioDasRendas, setSomatorioDasRendas] = useState(0);
 
   const valorNumerico = (referencia) =>
     Number(
@@ -22,6 +27,26 @@ export default function PaginaResultado() {
     );
 
   const todosProponentes = [...listaProponentes];
+
+  const listaTodasRendas = [];
+  let somatorioRendas = 0;
+
+  todosProponentes.forEach((proponente) => {
+    const rendasDoProponente = proponente.listaRendas.map((renda) =>
+      valorNumerico(renda.renda),
+    );
+    listaTodasRendas.push(...rendasDoProponente);
+  });
+
+  useEffect(() => {
+    let somatorioRendas = 0;
+
+    listaTodasRendas.forEach((renda) => {
+      somatorioRendas = somatorioRendas + renda;
+    });
+
+    setSomatorioDasRendas(somatorioRendas);
+  }, [listaTodasRendas]);
 
   return (
     <>
@@ -74,7 +99,7 @@ export default function PaginaResultado() {
                       CEP: <span>{proponente.cep}</span>
                     </p>
                     <p className={styles.dadosInfo}>
-                      Endereço:
+                      Endereço:{' '}
                       <span>
                         {proponente.cepLogradouro}, {proponente.cepNumero}
                         {proponente.cepComplemento !== ''
@@ -92,24 +117,11 @@ export default function PaginaResultado() {
                 <h6 class={styles.dadosTitulo}>Renda</h6>
                 <section className={styles.dadosContainer}>
                   <div>
-                    {/*  <div class={styles.somaRendas}>
+                    <div class={styles.somaRendas}>
                       <p className={styles.dadosInfo}>
-                        Somatório das rendas:{' '}
-                        <span>{proponente.somaRendas}</span>
+                        Renda total: <span>{proponente.somaRendas}</span>
                       </p>
-                      <p className={styles.dadosInfo}>
-                        Capacidade de pagamento:
-                        <span>
-                          {Number(
-                            valorNumerico(proponente.somaRendas) * 0.3,
-                          ).toLocaleString('pt-BR', {
-                            style: 'currency',
-                            currency: 'BRL',
-                          })}
-                        </span>
-                      </p>
-                    </div> */}
-
+                    </div>
                     <ul className={styles.listaRendas}>
                       {proponente.listaRendas.map((renda) => (
                         <li key={renda.cnpj} className={styles.itemRenda}>
@@ -136,21 +148,39 @@ export default function PaginaResultado() {
 
           <section className={styles.container}>
             <h6 className={styles.dadosTitulo}>Proposta</h6>
+            <div>
+              <p className={styles.dadosInfo}>
+                Somatório de todas as rendas:{' '}
+                <span>{ConverterBRL(ConverterBRL(somatorioDasRendas))}</span>
+              </p>
+              <p className={styles.dadosInfo}>
+                Valor da prestação máxima:{' '}
+                <span>{ConverterBRL(somatorioDasRendas * 0.3)}</span>
+              </p>
+            </div>
+            <div>
+              <p className={styles.dadosInfo}>
+                Imóvel: <span>{tipoImovel}</span>
+              </p>
+              <p className={styles.dadosInfo}>
+                Condição: <span>{condicaoImovel}</span>
+              </p>
+            </div>
             <section className={styles.dadosContainer}>
               <div>
                 <p className={styles.dadosInfo}>
                   Compra e venda: <span>{compraEVenda}</span>
                 </p>
                 <p className={styles.dadosInfo}>
-                  FGTS: <span>{fgts === '' ? 'não se aplica' : fgts}</span>
+                  Financiamento: <span>{financiamento}</span>
                 </p>
               </div>
               <div>
                 <p className={styles.dadosInfo}>
-                  Financiamento: <span>{financiamento}</span>
+                  Enquadramento: <span>{enquadramento}</span>
                 </p>
                 <p className={styles.dadosInfo}>
-                  Enquadramento: <span>{enquadramento}</span>
+                  FGTS: <span>{fgts === '' ? 'não se aplica' : fgts}</span>
                 </p>
               </div>
             </section>

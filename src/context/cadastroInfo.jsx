@@ -17,7 +17,7 @@ const CadastroProvider = ({ children }) => {
   const [cepBairro, setCEPBairro] = useState('');
   const [cepLocalidade, setCEPLocalidade] = useState('');
   const [cepUF, setCEPUF] = useState('');
-  const [cepNumero, setCENumero] = useState('');
+  const [cepNumero, setCEPNumero] = useState('');
   const [cepComplemento, setCEPComplemento] = useState('');
 
   /* Renda */
@@ -31,6 +31,9 @@ const CadastroProvider = ({ children }) => {
   const [listaProponentes, setListaProponentes] = useState([]);
 
   /* Proposta */
+
+  const [tipoImovel, setTipoImovel] = useState('');
+  const [condicaoImovel, setCondicaoImovel] = useState('');
   const [compraEVenda, setCompraEVenda] = useState('');
   const [financiamento, setFinanciamento] = useState('');
   const [enquadramento, setEnquadramento] = useState('');
@@ -38,7 +41,7 @@ const CadastroProvider = ({ children }) => {
   const [observacao, setObservacao] = useState('');
 
   /* Status */
-  const [status, setStatus] = useState(1);
+  const [status, setStatus] = useState(4);
 
   const contextValue = {
     nome,
@@ -60,6 +63,8 @@ const CadastroProvider = ({ children }) => {
     listaRendas,
     listaProponentes,
     status,
+    tipoImovel,
+    condicaoImovel,
     compraEVenda,
     financiamento,
     enquadramento,
@@ -76,7 +81,7 @@ const CadastroProvider = ({ children }) => {
     setCEPBairro,
     setCEPLocalidade,
     setCEPUF,
-    setCENumero,
+    setCEPNumero,
     setCEPComplemento,
     setEmpresaAtual,
     setRenda,
@@ -84,6 +89,8 @@ const CadastroProvider = ({ children }) => {
     setListaRendas,
     setStatus,
     setListaProponentes,
+    setCondicaoImovel,
+    setTipoImovel,
     setCompraEVenda,
     setFinanciamento,
     setEnquadramento,

@@ -1,4 +1,4 @@
-export default async function consultaCEP(cep) {
+export default async function ConsultaCEP(cep) {
   try {
     const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
 

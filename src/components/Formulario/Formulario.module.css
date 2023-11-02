@@ -57,6 +57,7 @@ form {
   max-width: 955px;
   flex: 1;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 16px;
 }

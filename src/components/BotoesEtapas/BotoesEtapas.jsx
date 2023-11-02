@@ -36,7 +36,7 @@ export default function BotoesEtapas() {
     setCEPBairro,
     setCEPLocalidade,
     setCEPUF,
-    setCENumero,
+    setCEPNumero,
     setCEPComplemento,
     setRenda,
     setSomaRendas,
@@ -44,17 +44,13 @@ export default function BotoesEtapas() {
   } = useContext(CadastroContext);
 
   function voltar() {
-    if (status != 3) {
-      if (status !== 1 && status >= 1) {
-        setStatus(status - 1);
-      }
-    }
+    setStatus(status - 1);
   }
 
   function avancar() {
     if (status === 3) {
       /* Cria um proponente */
-      if (nome != '' && cpf != '') {
+      if (nome !== '' && cpf !== '') {
         const Proponente = {
           nome: nome,
           cpf: cpf,
@@ -73,7 +69,13 @@ export default function BotoesEtapas() {
           listaRendas: listaRendas,
         };
 
-        setListaProponentes([...listaProponentes, Proponente]);
+        /* Para organizar a lista de proponentes por ordem alfabética */
+        const listaSemOrganizar = [...listaProponentes, Proponente];
+        const listaOrganizada = listaSemOrganizar.sort((a, b) =>
+          a.nome.localeCompare(b.nome),
+        );
+
+        setListaProponentes([...listaOrganizada]);
 
         /* Apagar estados anteriores */
 
@@ -88,7 +90,7 @@ export default function BotoesEtapas() {
         setCEPBairro('');
         setCEPLocalidade('');
         setCEPUF('');
-        setCENumero('');
+        setCEPNumero('');
         setCEPComplemento('');
         setRenda('');
         setSomaRendas('');
@@ -130,7 +132,7 @@ export default function BotoesEtapas() {
         }}
         onClick={avancar}
       >
-        Avançar
+        {status === 3 ? 'Salvar' : 'Avançar'}
       </Button>
     </section>
   );

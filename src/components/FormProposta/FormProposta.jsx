@@ -10,12 +10,16 @@ import MultilineForm from '../multilineForm/multilineForm';
 
 export default function FormProposta() {
   const {
+    tipoImovel,
+    condicaoImovel,
     compraEVenda,
     financiamento,
     enquadramento,
     fgts,
     observacao,
     status,
+    setCondicaoImovel,
+    setTipoImovel,
     setCompraEVenda,
     setFinanciamento,
     setEnquadramento,
@@ -72,6 +76,33 @@ export default function FormProposta() {
       <Titulo texto="Proposta" />
 
       <section className={styles.preencherContainer}>
+        <div>
+          <SelectForm
+            id="input-tipoImovel"
+            value={tipoImovel}
+            label="Imóvel"
+            onChange={(event) => {
+              setTipoImovel(event.target.value);
+            }}
+          >
+            <MenuItem value="">Sem enquadramento</MenuItem>
+            <MenuItem value="Residencial">Residencial</MenuItem>
+            <MenuItem value="Comercial">Comercial</MenuItem>
+          </SelectForm>
+
+          <SelectForm
+            id="input-condicaoImovel"
+            value={condicaoImovel}
+            label="Condição"
+            onChange={(event) => {
+              setCondicaoImovel(event.target.value);
+            }}
+          >
+            <MenuItem value="">Sem enquadramento</MenuItem>
+            <MenuItem value="Usado">Usado</MenuItem>
+            <MenuItem value="Novo">Novo</MenuItem>
+          </SelectForm>
+        </div>
         <div>
           <NumericFormat
             value={compraEVenda}
