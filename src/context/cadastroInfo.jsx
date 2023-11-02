@@ -21,6 +21,8 @@ const CadastroProvider = ({ children }) => {
   const [cepComplemento, setCEPComplemento] = useState('');
 
   /* Renda */
+  const [empresaAtual, setEmpresaAtual] = useState('');
+
   const [renda, setRenda] = useState('');
   const [listaRendas, setListaRendas] = useState([]);
   const [somaRendas, setSomaRendas] = useState(0);
@@ -52,6 +54,7 @@ const CadastroProvider = ({ children }) => {
     cepUF,
     cepNumero,
     cepComplemento,
+    empresaAtual,
     renda,
     somaRendas,
     listaRendas,
@@ -75,6 +78,7 @@ const CadastroProvider = ({ children }) => {
     setCEPUF,
     setCENumero,
     setCEPComplemento,
+    setEmpresaAtual,
     setRenda,
     setSomaRendas,
     setListaRendas,

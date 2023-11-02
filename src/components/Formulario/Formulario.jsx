@@ -15,7 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 /* 005ca9 */
 
 export default function Formulario() {
-  const { status, setStatus, listaRendas, setListaRendas } =
+  const { status, empresaAtual, setStatus, listaRendas, setListaRendas } =
     useContext(CadastroContext);
 
   return (
@@ -39,7 +39,7 @@ export default function Formulario() {
             ? listaRendas.map((renda, index) => (
                 <li key={index} className={styles.rendaContainer}>
                   <h1 className={styles.listaRendasTitulo}>
-                    {renda.tipo}{' '}
+                    {renda.tipo ? renda.tipo : 'Tipo não definido'}
                     <Button
                       variant="outlined"
                       style={{
@@ -61,7 +61,11 @@ export default function Formulario() {
                       <DeleteIcon />
                     </Button>
                   </h1>
-
+                  <InputLeitura
+                    id={`nomeDaEmpresa${renda.cnpj}`}
+                    label="Razão social"
+                    value={renda.empresa}
+                  />
                   <div>
                     <InputLeitura
                       id={`cnpjDaEmpresa${renda.cnpj}`}
@@ -70,7 +74,7 @@ export default function Formulario() {
                     />
                     <InputLeitura
                       key={`admissaoDaEmpresa${renda.cnpj}`}
-                      label="Admissao"
+                      label="Admissão"
                       value={renda.admissao}
                     />
                   </div>
