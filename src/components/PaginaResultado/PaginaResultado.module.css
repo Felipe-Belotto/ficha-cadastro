@@ -84,7 +84,7 @@
 .listaRendas{
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   gap: 16px;
   flex-wrap: wrap;
 }
