@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import { CadastroContext } from '../../context/cadastroInfo';
 import styles from '../Formulario/Formulario.module.css';
 import { Button } from '@mui/material';
-import CalculaPrazo from '../../functions/calculaPrazo';
+import CalculaPrazo from '../../functions/CalculaPrazo';
 
 export default function BotoesEtapas() {
   const {
