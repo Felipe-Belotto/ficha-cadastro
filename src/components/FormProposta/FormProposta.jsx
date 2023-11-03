@@ -188,9 +188,9 @@ export default function FormProposta() {
             id={`prazoMaximo`}
             label="Prazo"
             value={
-              isNaN(prazoMaximo)
-                ? 'Data de nascimento não definida'
-                : prazoMaximo + ' meses'
+              isFinite(prazoMaximo)
+                ? prazoMaximo + ' meses'
+                : 'Data de nascimento não definida'
             }
           />
         </div>

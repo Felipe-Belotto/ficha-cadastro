@@ -173,7 +173,12 @@ export default function PaginaResultado() {
                 Condição: <span>{condicaoImovel}</span>
               </p>
               <p className={styles.dadosInfo}>
-                Prazo Máximo: <span>{prazoMaximo} meses</span>
+                Prazo Máximo:{' '}
+                <span>
+                  {isFinite(prazoMaximo)
+                    ? prazoMaximo + ' meses'
+                    : 'Data de nascimento não definida'}
+                </span>
               </p>
             </div>
             <section className={styles.dadosContainer}>
