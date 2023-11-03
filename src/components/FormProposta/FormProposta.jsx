@@ -3,10 +3,11 @@ import styles from '../Formulario/Formulario.module.css';
 import InputForm from '../InputForm/InputForm';
 import SelectForm from '../SelectForm/SelectForm';
 import Titulo from '../Titulo/Titulo';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { CadastroContext } from '../../context/cadastroInfo';
 import { NumericFormat } from 'react-number-format';
 import MultilineForm from '../multilineForm/multilineForm';
+import InputLeitura from '../InputLeitura/InputLeitura';
 
 export default function FormProposta() {
   const {
@@ -17,7 +18,9 @@ export default function FormProposta() {
     enquadramento,
     fgts,
     observacao,
+    prazoMaximo,
     status,
+    listaProponentes,
     setCondicaoImovel,
     setTipoImovel,
     setCompraEVenda,
@@ -25,6 +28,7 @@ export default function FormProposta() {
     setEnquadramento,
     setFGTS,
     setObservacao,
+    setPrazoMaximo,
   } = useContext(CadastroContext);
 
   const inputCvProps = {
@@ -68,6 +72,16 @@ export default function FormProposta() {
       },
     },
   };
+
+  function encontrarMenorPrazo(listaProponentes) {
+    return Math.min(...listaProponentes.map((proponente) => proponente.prazo));
+  }
+
+  useEffect(() => {
+    const prazoMenor = encontrarMenorPrazo(listaProponentes);
+    setPrazoMaximo(prazoMenor);
+  }, [listaProponentes, setPrazoMaximo]);
+
   return (
     <section
       className={styles.categoriaContainer}
@@ -167,6 +181,10 @@ export default function FormProposta() {
             <MenuItem value="Pró-cotista">Pró-cotista</MenuItem>
             <MenuItem value="SBPE">SBPE</MenuItem>
           </SelectForm>
+        </div>
+
+        <div>
+          <InputLeitura id={`prazoMaximo`} label="Prazo" value={prazoMaximo} />
         </div>
 
         <MultilineForm

@@ -11,6 +11,7 @@ const CadastroProvider = ({ children }) => {
   const [celular, setCelular] = useState('');
   const [email, setEmail] = useState('');
   const [pis, setPis] = useState('');
+  const [prazo, setPrazo] = useState('');
 
   /* Endereço */
   const [cep, setCEP] = useState('');
@@ -39,7 +40,8 @@ const CadastroProvider = ({ children }) => {
   const [financiamento, setFinanciamento] = useState('');
   const [enquadramento, setEnquadramento] = useState('');
   const [fgts, setFGTS] = useState('');
-  const [prazo, setPrazo] = useState('');
+  const [prazoMaximo, setPrazoMaximo] = useState('');
+
   const [observacao, setObservacao] = useState('');
 
   /* Status */
@@ -67,6 +69,8 @@ const CadastroProvider = ({ children }) => {
     listaProponentes,
     status,
     prazo,
+    prazoMaximo,
+    setPrazoMaximo,
     setPrazo,
     tipoImovel,
     condicaoImovel,

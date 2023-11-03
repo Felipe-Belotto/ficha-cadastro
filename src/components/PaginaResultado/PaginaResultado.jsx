@@ -15,6 +15,7 @@ export default function PaginaResultado() {
     enquadramento,
     fgts,
     observacao,
+    prazoMaximo,
   } = useContext(CadastroContext);
 
   const [somatorioDasRendas, setSomatorioDasRendas] = useState(0);
@@ -170,6 +171,9 @@ export default function PaginaResultado() {
               </p>
               <p className={styles.dadosInfo}>
                 Condição: <span>{condicaoImovel}</span>
+              </p>
+              <p className={styles.dadosInfo}>
+                Prazo Máximo: <span>{prazoMaximo} meses</span>
               </p>
             </div>
             <section className={styles.dadosContainer}>
