@@ -7,9 +7,10 @@ const CadastroProvider = ({ children }) => {
   const [nome, setNome] = useState('');
   const [cpf, setCPF] = useState('');
   const [estadoCivil, setEstadoCivil] = useState('');
-  const [pis, setPis] = useState('');
+  const [nascimento, setNascimento] = useState('');
   const [celular, setCelular] = useState('');
   const [email, setEmail] = useState('');
+  const [pis, setPis] = useState('');
 
   /* Endereço */
   const [cep, setCEP] = useState('');
@@ -38,6 +39,7 @@ const CadastroProvider = ({ children }) => {
   const [financiamento, setFinanciamento] = useState('');
   const [enquadramento, setEnquadramento] = useState('');
   const [fgts, setFGTS] = useState('');
+  const [prazo, setPrazo] = useState('');
   const [observacao, setObservacao] = useState('');
 
   /* Status */
@@ -47,9 +49,10 @@ const CadastroProvider = ({ children }) => {
     nome,
     cpf,
     estadoCivil,
-    pis,
+    nascimento,
     celular,
     email,
+    pis,
     cep,
     cepLogradouro,
     cepBairro,
@@ -63,6 +66,8 @@ const CadastroProvider = ({ children }) => {
     listaRendas,
     listaProponentes,
     status,
+    prazo,
+    setPrazo,
     tipoImovel,
     condicaoImovel,
     compraEVenda,
@@ -73,6 +78,7 @@ const CadastroProvider = ({ children }) => {
     setNome,
     setCPF,
     setEstadoCivil,
+    setNascimento,
     setPis,
     setCelular,
     setEmail,

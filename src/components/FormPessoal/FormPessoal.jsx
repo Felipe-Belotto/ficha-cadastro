@@ -11,6 +11,7 @@ export default function FormPessoal() {
     nome,
     cpf,
     estadoCivil,
+    nascimento,
     pis,
     celular,
     email,
@@ -18,6 +19,7 @@ export default function FormPessoal() {
     setNome,
     setCPF,
     setEstadoCivil,
+    setNascimento,
     setPis,
     setCelular,
     setEmail,
@@ -84,11 +86,14 @@ export default function FormPessoal() {
           </SelectForm>
 
           <InputForm
-            id="input-pis"
-            value={pis}
-            label="PIS (caso tenha FGTS)"
+            id="input-nascimento"
+            value={nascimento}
+            label="Nascimento"
+            maxLength="10"
             onChange={(event) => {
-              setPis(event.target.value);
+              setNascimento(
+                event.target.value.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3'),
+              );
             }}
           />
         </div>
@@ -114,6 +119,17 @@ export default function FormPessoal() {
                   .replace(/\D/g, '')
                   .replace(/(\d{2})(\d{0,5})(\d{0,4})/, '($1) $2-$3'),
               );
+            }}
+          />
+        </div>
+
+        <div>
+          <InputForm
+            id="input-pis"
+            value={pis}
+            label="PIS (caso tenha FGTS)"
+            onChange={(event) => {
+              setPis(event.target.value);
             }}
           />
         </div>

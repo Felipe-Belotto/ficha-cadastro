@@ -14,6 +14,7 @@ export default function FormProponentes() {
     setNome,
     setCPF,
     setEstadoCivil,
+    setNascimento,
     setPis,
     setCelular,
     setEmail,
@@ -36,6 +37,7 @@ export default function FormProponentes() {
     setNome(proponente.nome);
     setCPF(proponente.cpf);
     setEstadoCivil(proponente.estadoCivil);
+    setNascimento(proponente.nascimento);
     setPis(proponente.pis);
     setCelular(proponente.celular);
     setEmail(proponente.email);
@@ -91,25 +93,27 @@ export default function FormProponentes() {
         </Button>
 
         {todosProponentes.map((Proponente, index) => (
-          <Button
-            key={index}
-            variant="outlined"
-            onClick={() => {
-              proponenteInfo(Proponente);
-            }}
-            style={{
-              alignSelf: 'center',
-              width: '50%',
-              minWidth: '250px',
-              height: '50px',
-              backgroundColor: '#1f467e',
-              color: 'white',
-              display: 'flex',
-              gap: '10px',
-            }}
-          >
-            {Proponente.nome}
-          </Button>
+          <>
+            <Button
+              key={index}
+              variant="outlined"
+              onClick={() => {
+                proponenteInfo(Proponente);
+              }}
+              style={{
+                alignSelf: 'center',
+                width: '50%',
+                minWidth: '250px',
+                height: '50px',
+                backgroundColor: '#1f467e',
+                color: 'white',
+                display: 'flex',
+                gap: '10px',
+              }}
+            >
+              {Proponente.nome}
+            </Button>
+          </>
         ))}
       </section>
     </section>

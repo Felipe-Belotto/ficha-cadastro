@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import { CadastroContext } from '../../context/cadastroInfo';
 import styles from '../Formulario/Formulario.module.css';
 import { Button } from '@mui/material';
+import CalculaPrazo from '../../functions/calculaPrazo';
 
 export default function BotoesEtapas() {
   const {
@@ -19,6 +20,7 @@ export default function BotoesEtapas() {
     cepNumero,
     cepComplemento,
     renda,
+    nascimento,
     somaRendas,
     listaRendas,
     listaProponentes,
@@ -28,6 +30,7 @@ export default function BotoesEtapas() {
     setNome,
     setCPF,
     setEstadoCivil,
+    setNascimento,
     setPis,
     setCelular,
     setEmail,
@@ -47,6 +50,9 @@ export default function BotoesEtapas() {
     setStatus(status - 1);
   }
 
+  const prazoSemLimite = CalculaPrazo(nascimento);
+  const prazoMaximo = prazoSemLimite > 420 ? 420 : prazoSemLimite;
+
   function avancar() {
     if (status === 3) {
       /* Cria um proponente */
@@ -55,6 +61,7 @@ export default function BotoesEtapas() {
           nome: nome,
           cpf: cpf,
           estadoCivil: estadoCivil,
+          nascimento: nascimento,
           pis: pis,
           celular: celular,
           email: email,
@@ -67,6 +74,7 @@ export default function BotoesEtapas() {
           cepComplemento: cepComplemento,
           somaRendas: somaRendas,
           listaRendas: listaRendas,
+          prazo: prazoMaximo,
         };
 
         /* Para organizar a lista de proponentes por ordem alfabética */
@@ -82,6 +90,7 @@ export default function BotoesEtapas() {
         setNome('');
         setCPF('');
         setEstadoCivil('');
+        setNascimento('');
         setPis('');
         setCelular('');
         setEmail('');
