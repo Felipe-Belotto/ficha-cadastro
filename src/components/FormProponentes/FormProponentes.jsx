@@ -64,6 +64,29 @@ export default function FormProponentes() {
     );
   }
 
+  function ordenarProponentesPorRendaDecrescente() {
+    const listaOrdenada = [...listaProponentes];
+
+    const converterStringParaNumero = (rendaString) => {
+      const valorNumerico = Number(
+        rendaString.replace(/[^\d,-]/g, '').replace(',', '.'),
+      );
+      return isNaN(valorNumerico) ? 0 : valorNumerico;
+    };
+
+    listaOrdenada.sort(
+      (a, b) =>
+        converterStringParaNumero(b.somaRendas) -
+        converterStringParaNumero(a.somaRendas),
+    );
+
+    setListaProponentes(listaOrdenada);
+  }
+
+  useEffect(() => {
+    ordenarProponentesPorRendaDecrescente();
+  }, [listaProponentes, setListaProponentes]);
+
   return (
     <section
       className={styles.categoriaContainer}

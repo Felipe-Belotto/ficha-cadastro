@@ -184,7 +184,15 @@ export default function FormProposta() {
         </div>
 
         <div>
-          <InputLeitura id={`prazoMaximo`} label="Prazo" value={prazoMaximo} />
+          <InputLeitura
+            id={`prazoMaximo`}
+            label="Prazo"
+            value={
+              isNaN(prazoMaximo)
+                ? 'Data de nascimento não definida'
+                : prazoMaximo + ' meses'
+            }
+          />
         </div>
 
         <MultilineForm
