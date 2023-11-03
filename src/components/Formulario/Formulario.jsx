@@ -10,7 +10,6 @@ import FormProposta from '../FormProposta/FormProposta';
 import PaginaResultado from '../PaginaResultado/PaginaResultado';
 import BotoesEtapas from '../BotoesEtapas/BotoesEtapas.jsx';
 import FormProponentes from '../FormProponentes/FormProponentes';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 /* 005ca9 */
 
@@ -30,64 +29,6 @@ export default function Formulario() {
         </section>
 
         <BotoesEtapas />
-
-        <ul
-          className={styles.listaRendas}
-          style={{ display: status === 3 ? 'flex' : 'none' }}
-        >
-          {status === 3
-            ? listaRendas.map((renda, index) => (
-                <li key={index} className={styles.rendaContainer}>
-                  <h1 className={styles.listaRendasTitulo}>
-                    {renda.tipo ? renda.tipo : 'Tipo não definido'}
-                    <Button
-                      variant="outlined"
-                      style={{
-                        minWidth: 'auto',
-                        display: status === 1 || status === 4 ? 'none' : 'flex',
-                        backgroundColor: 'transparent',
-                        color: 'white',
-                        cursor: 'pointer',
-                        border: 'none',
-                      }}
-                      onClick={() => {
-                        confirm(`Deseja apagar a renda atual ? ${renda.renda}`)
-                          ? setListaRendas((listaAnterior) =>
-                              listaAnterior.filter((itens) => itens !== renda),
-                            )
-                          : '';
-                      }}
-                    >
-                      <DeleteIcon />
-                    </Button>
-                  </h1>
-                  <InputLeitura
-                    id={`nomeDaEmpresa${renda.cnpj}`}
-                    label="Razão social"
-                    value={renda.empresa}
-                  />
-                  <div>
-                    <InputLeitura
-                      id={`cnpjDaEmpresa${renda.cnpj}`}
-                      label="CNPJ"
-                      value={renda.cnpj}
-                    />
-                    <InputLeitura
-                      key={`admissaoDaEmpresa${renda.cnpj}`}
-                      label="Admissão"
-                      value={renda.admissao}
-                    />
-                  </div>
-
-                  <InputLeitura
-                    key={`rendaDaEmpresa${renda.cnpj}`}
-                    label="Renda"
-                    value={renda.renda}
-                  />
-                </li>
-              ))
-            : ''}
-        </ul>
       </form>
 
       <PaginaResultado />

@@ -126,10 +126,16 @@ export default function PaginaResultado() {
                       {proponente.listaRendas.map((renda) => (
                         <li key={renda.cnpj} className={styles.itemRenda}>
                           <p className={styles.dadosInfo}>
+                            CNPJ: <span>{renda.cnpj}</span>
+                          </p>
+                          <p className={styles.dadosInfo}>
                             Tipo: <span>{renda.tipo}</span>
                           </p>
                           <p className={styles.dadosInfo}>
-                            CNPJ: <span>{renda.cnpj}</span>
+                            Cargo: <span>{renda.cargo}</span>
+                          </p>
+                          <p className={styles.dadosInfo}>
+                            Refêrencia: <span>{renda.referencia}</span>
                           </p>
                           <p className={styles.dadosInfo}>
                             Admissão: <span>{renda.admissao}</span>
