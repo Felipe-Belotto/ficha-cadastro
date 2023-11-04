@@ -151,7 +151,13 @@ export default function FormRenda() {
             <Button
               variant="outlined"
               onClick={() => {
-                consultaEmpresa(renda.cnpj);
+                const cnpjNumerico = renda.cnpj.replace(/[^\d]/g, '');
+
+                if (cnpjNumerico.length !== 14) {
+                  alert('CNPJ não atende a quantidade minima de caracteres');
+                } else {
+                  consultaEmpresa(renda.cnpj);
+                }
               }}
               style={{
                 alignSelf: 'center',
@@ -171,7 +177,7 @@ export default function FormRenda() {
             <InputLeitura
               id={`nomeCNPJ`}
               label="Nome da empresa"
-              value={empresaAtual.razao_social ? empresaAtual.razao_social : ''}
+              value={empresaAtual.razao_social || ''}
             />
             <SelectForm
               id="input-tipoRenda"

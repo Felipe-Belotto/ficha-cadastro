@@ -1,11 +1,6 @@
 export default async function consultaCNPJ(cnpj) {
   const formatadoCNPJ = cnpj.replace(/[./-]/g, '');
 
-  if (formatadoCNPJ.length !== 14) {
-    console.error('CNPJ inválido');
-    return null;
-  }
-
   try {
     const response = await fetch(`https://minhareceita.org/${formatadoCNPJ}`);
 
