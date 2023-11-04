@@ -66,7 +66,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
 }
 
 .dadosInfo{
@@ -122,3 +122,17 @@
     color: #333;
   }
 }
+
+@media print {
+  .paginaResultado{
+    width: auto;
+    height: 100vh;
+    padding: 0 10px;
+  }
+
+  .conteudo {
+    width: 100%;
+    padding: 0 8px;
+  }
+  
+ }

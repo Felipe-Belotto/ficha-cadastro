@@ -3,6 +3,7 @@ import styles from './PaginaResultado.module.css';
 import { CadastroContext } from '../../context/cadastroInfo';
 import BotoesEtapas from '../BotoesEtapas/BotoesEtapas';
 import ConverterBRL from '../../functions/ConverterBRL.jsx';
+import SubTitulo from '../SubTitulo/SubTitulo.jsx';
 
 export default function PaginaResultado() {
   const {
@@ -165,37 +166,37 @@ export default function PaginaResultado() {
                 <span>{ConverterBRL(somatorioDasRendas * 0.3)}</span>
               </p>
             </div>
-            <div>
-              <p className={styles.dadosInfo}>
-                Imóvel: <span>{tipoImovel}</span>
-              </p>
-              <p className={styles.dadosInfo}>
-                Condição: <span>{condicaoImovel}</span>
-              </p>
-              <p className={styles.dadosInfo}>
-                Prazo Máximo:{' '}
-                <span>
-                  {isFinite(prazoMaximo)
-                    ? prazoMaximo + ' meses'
-                    : 'Data de nascimento não definida'}
-                </span>
-              </p>
-            </div>
+
             <section className={styles.dadosContainer}>
               <div>
+                <div>
+                  <p className={styles.dadosInfo}>
+                    Imóvel: <span>{tipoImovel}</span>
+                  </p>
+
+                  <p className={styles.dadosInfo}>
+                    Prazo Máximo:{' '}
+                    <span>
+                      {isFinite(prazoMaximo)
+                        ? prazoMaximo + ' meses'
+                        : 'Data de nascimento não definida'}
+                    </span>
+                  </p>
+                </div>
+
                 <p className={styles.dadosInfo}>
                   Compra e venda: <span>{compraEVenda}</span>
                 </p>
                 <p className={styles.dadosInfo}>
                   Financiamento: <span>{financiamento}</span>
                 </p>
+                <p className={styles.dadosInfo}>
+                  FGTS: <span>{fgts === '' ? 'não se aplica' : fgts}</span>
+                </p>
               </div>
               <div>
                 <p className={styles.dadosInfo}>
-                  Enquadramento: <span>{enquadramento}</span>
-                </p>
-                <p className={styles.dadosInfo}>
-                  FGTS: <span>{fgts === '' ? 'não se aplica' : fgts}</span>
+                  Condição: <span>{condicaoImovel}</span>
                 </p>
               </div>
             </section>
