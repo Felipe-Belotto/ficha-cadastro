@@ -31,7 +31,6 @@ export default function PaginaResultado() {
   const todosProponentes = [...listaProponentes];
 
   const listaTodasRendas = [];
-  let somatorioRendas = 0;
 
   todosProponentes.forEach((proponente) => {
     const rendasDoProponente = proponente.listaRendas.map((renda) =>
@@ -56,47 +55,44 @@ export default function PaginaResultado() {
         class={styles.paginaResultado}
         style={{ display: status === 6 ? 'flex' : 'none' }}
       >
-        <div class={styles.conteudo}>
+        <section class={styles.conteudo}>
           <h5 className={styles.titulo}>Ficha cadastro</h5>
-
-          {todosProponentes.map((proponente, index) => (
-            <>
-              <section className={styles.container}>
+          <section className={styles.conteudoInformacoes}>
+            {todosProponentes.map((proponente, index) => (
+              <>
                 <h6 class={styles.dadosTitulo}>
                   Proponente {index + 1 === 1 ? 'principal' : index + 1}
                 </h6>
-                <section className={styles.dadosContainer}>
+                <section key={index} className={styles.container}>
                   <div>
+                    <SubTitulo texto="Dados cadastrais" />
                     <p className={styles.dadosInfo}>
                       Nome: <span>{proponente.nome}</span>
+                    </p>
+                    <p className={styles.dadosInfo}>
+                      CPF: <span>{proponente.cpf}</span>
                     </p>
                     <p className={styles.dadosInfo}>
                       Estado civil: <span>{proponente.estadoCivil}</span>
                     </p>
                     <p className={styles.dadosInfo}>
-                      Email: <span>{proponente.email}</span>
+                      PIS: <span>{proponente.pis}</span>
                     </p>
                   </div>
                   <div>
-                    <p className={styles.dadosInfo}>
-                      CPF: <span>{proponente.cpf}</span>
-                    </p>
-
-                    <p className={styles.dadosInfo}>
-                      PIS: <span>{proponente.pis}</span>
-                    </p>
-
+                    <SubTitulo texto="Contatos" />
                     <p className={styles.dadosInfo}>
                       Celular <span>{proponente.celular}</span>
                     </p>
+                    <p className={styles.dadosInfo}>
+                      Email: <span>{proponente.email}</span>
+                    </p>
                   </div>
                 </section>
-              </section>
 
-              <section className={styles.container}>
-                <h6 class={styles.dadosTitulo}>Endereço</h6>
-                <section className={styles.dadosContainer}>
+                <section className={styles.container}>
                   <div>
+                    <SubTitulo texto="Endereço" />
                     <p className={styles.dadosInfo}>
                       CEP: <span>{proponente.cep}</span>
                     </p>
@@ -113,12 +109,10 @@ export default function PaginaResultado() {
                     </p>
                   </div>
                 </section>
-              </section>
 
-              <section className={styles.container}>
-                <h6 class={styles.dadosTitulo}>Renda</h6>
-                <section className={styles.dadosContainer}>
+                <section className={styles.container}>
                   <div>
+                    <SubTitulo texto="Renda" />
                     <div class={styles.somaRendas}>
                       <p className={styles.dadosInfo}>
                         Renda total: <span>{proponente.somaRendas}</span>
@@ -150,30 +144,24 @@ export default function PaginaResultado() {
                     </ul>
                   </div>
                 </section>
-              </section>
-            </>
-          ))}
+              </>
+            ))}
 
-          <section className={styles.container}>
             <h6 className={styles.dadosTitulo}>Proposta</h6>
-            <div>
-              <p className={styles.dadosInfo}>
-                Somatório de todas as rendas:{' '}
-                <span>{ConverterBRL(ConverterBRL(somatorioDasRendas))}</span>
-              </p>
-              <p className={styles.dadosInfo}>
-                Valor da prestação máxima:{' '}
-                <span>{ConverterBRL(somatorioDasRendas * 0.3)}</span>
-              </p>
-            </div>
-
-            <section className={styles.dadosContainer}>
-              <div>
+            <section className={styles.container}>
+              <div className={styles.somaRendas}>
                 <div>
+                  <SubTitulo texto="Capacidade de pagamento" />
                   <p className={styles.dadosInfo}>
-                    Imóvel: <span>{tipoImovel}</span>
+                    Somatório de todas as rendas:{' '}
+                    <span>
+                      {ConverterBRL(ConverterBRL(somatorioDasRendas))}
+                    </span>
                   </p>
-
+                  <p className={styles.dadosInfo}>
+                    Valor da prestação máxima:{' '}
+                    <span>{ConverterBRL(somatorioDasRendas * 0.3)}</span>
+                  </p>
                   <p className={styles.dadosInfo}>
                     Prazo Máximo:{' '}
                     <span>
@@ -183,7 +171,10 @@ export default function PaginaResultado() {
                     </span>
                   </p>
                 </div>
+              </div>
 
+              <div>
+                <SubTitulo texto="Valores" />
                 <p className={styles.dadosInfo}>
                   Compra e venda: <span>{compraEVenda}</span>
                 </p>
@@ -195,16 +186,18 @@ export default function PaginaResultado() {
                 </p>
               </div>
               <div>
+                <SubTitulo texto="Imóvel" />
+                <p className={styles.dadosInfo}>
+                  Imóvel: <span>{tipoImovel}</span>
+                </p>
                 <p className={styles.dadosInfo}>
                   Condição: <span>{condicaoImovel}</span>
                 </p>
               </div>
             </section>
-          </section>
 
-          <section className={styles.container}>
-            <h6 class={styles.dadosTitulo}>Observação</h6>
-            <section className={styles.dadosContainer}>
+            <SubTitulo texto="Observação" />
+            <section className={styles.container}>
               <div>
                 <p className={styles.dadosInfo}>
                   {observacao === '' ? 'Nenhuma' : observacao}
@@ -212,7 +205,7 @@ export default function PaginaResultado() {
               </div>
             </section>
           </section>
-        </div>
+        </section>
         <BotoesEtapas />
       </section>
     </>
