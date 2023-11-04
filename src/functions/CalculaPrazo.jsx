@@ -1,18 +1,16 @@
 export default function CalculaPrazo(dataNascimento) {
-  const partesData = dataNascimento.split('/');
+  const [dia, mes, ano] = dataNascimento.split('/');
 
-  const dia = parseInt(partesData[0], 10);
-  const mes = parseInt(partesData[1], 10);
-  const ano = parseInt(partesData[2], 10);
-
-  const dataNascimentoObj = new Date(ano, mes - 1, dia);
+  const dataNascimentoObj = new Date(`${ano}-${mes}-${dia}`);
 
   const dataAtual = new Date();
-  const diferencaEmMilissegundos = dataAtual - dataNascimentoObj;
-  const diferencaEmMeses =
-    diferencaEmMilissegundos / (1000 * 60 * 60 * 24 * 30.44);
 
-  const mesesAte80Anos = 80 * 12 - diferencaEmMeses;
+  const data80Anos = new Date(dataNascimentoObj);
+  data80Anos.setFullYear(data80Anos.getFullYear() + 80);
 
-  return Math.round(mesesAte80Anos);
+  const diferencaMeses = Math.ceil(
+    (data80Anos - dataAtual) / (30 * 24 * 60 * 60 * 1000),
+  );
+
+  return diferencaMeses;
 }
