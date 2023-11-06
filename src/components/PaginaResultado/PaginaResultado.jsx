@@ -73,6 +73,9 @@ export default function PaginaResultado() {
                       CPF: <span>{proponente.cpf}</span>
                     </p>
                     <p className={styles.dadosInfo}>
+                      Data de nascimento: <span>{proponente.nascimento}</span>
+                    </p>
+                    <p className={styles.dadosInfo}>
                       Estado civil: <span>{proponente.estadoCivil}</span>
                     </p>
                     <p className={styles.dadosInfo}>
