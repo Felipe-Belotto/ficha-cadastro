@@ -26,6 +26,7 @@ export default function SelectForm(props) {
         value={props.value}
         required
         MenuProps={{ PaperProps: { style: selectOptionStyle } }}
+        defaultValue={props.defaultValue}
       >
         {props.children}
       </Select>

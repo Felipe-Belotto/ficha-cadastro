@@ -11,10 +11,11 @@ import InputLeitura from '../InputLeitura/InputLeitura';
 import consultaCNPJ from '../../functions/ConsultaCNPJ';
 import FormatarData from '../../functions/FormatarData';
 import DeleteIcon from '@mui/icons-material/Delete';
-import SubTitulo from '../SubTitulo/SubTitulo';
 
 export default function FormRenda() {
   const {
+    nome,
+    cpf,
     empresaAtual,
     renda,
     listaRendas,
@@ -25,6 +26,8 @@ export default function FormRenda() {
     somaRendas,
     setSomaRendas,
   } = useContext(CadastroContext);
+
+  const [rendaRecebida, setRendaRecebida] = useState('CNPJ');
 
   useEffect(() => {
     const todasRendas = [...listaRendas];
@@ -77,15 +80,17 @@ export default function FormRenda() {
   }
 
   function adicionaRenda(event) {
-    const admissaoInvertida = FormatarData(empresaAtual.data_inicio_atividade);
-
     const mesAtual = obterMesEAnoAtual();
 
     const rendaAtual = {
+      recebida: rendaRecebida,
       empresa: empresaAtual.razao_social,
+      cpf: cpf,
       cnpj: renda.cnpj,
       admissao:
-        renda.tipo === 'Imposto de renda' ? admissaoInvertida : renda.admissao,
+        renda.tipo === 'Imposto de renda' && rendaRecebida === 'CNPJ'
+          ? FormatarData(empresaAtual.data_inicio_atividade)
+          : renda.admissao,
       tipo: renda.tipo,
       cargo: renda.cargo,
       renda: renda.renda,
@@ -133,52 +138,6 @@ export default function FormRenda() {
 
         <section className={styles.preencherContainer}>
           <div>
-            <InputForm
-              id="input-cnpj"
-              value={renda.cnpj}
-              label="CNPJ"
-              maxLength="18"
-              onChange={(event) => {
-                const atualizaRenda = { ...renda };
-                atualizaRenda.cnpj = event.target.value.replace(
-                  /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,
-                  '$1.$2.$3/$4-$5',
-                );
-                setRenda(atualizaRenda);
-              }}
-            />
-
-            <Button
-              variant="outlined"
-              onClick={() => {
-                const cnpjNumerico = renda.cnpj.replace(/[^\d]/g, '');
-
-                if (cnpjNumerico.length !== 14) {
-                  alert('CNPJ não atende a quantidade minima de caracteres');
-                } else {
-                  consultaEmpresa(renda.cnpj);
-                }
-              }}
-              style={{
-                alignSelf: 'center',
-                width: '96%',
-                height: '50px',
-                backgroundColor: '#1f467e',
-                color: 'white',
-                display: 'flex',
-                gap: '10px',
-              }}
-            >
-              Consultar
-            </Button>
-          </div>
-
-          <div>
-            <InputLeitura
-              id={`nomeCNPJ`}
-              label="Nome da empresa"
-              value={empresaAtual.razao_social || ''}
-            />
             <SelectForm
               id="input-tipoRenda"
               label="Tipo"
@@ -186,18 +145,110 @@ export default function FormRenda() {
               onChange={(event) => {
                 const atualizaRenda = { ...renda };
                 atualizaRenda.tipo = event.target.value;
+
+                if (
+                  event.target.value === 'Imposto de renda' ||
+                  event.target.value === 'Pró labore' ||
+                  event.target.value === 'CLT'
+                ) {
+                  setRendaRecebida('CNPJ');
+                }
+
                 setRenda(atualizaRenda);
               }}
             >
-              <MenuItem value=""></MenuItem>
               <MenuItem value="Imposto de renda">Imposto de renda</MenuItem>
               <MenuItem value="CLT">CLT</MenuItem>
               <MenuItem value="Pró labore">Pró labore</MenuItem>
               <MenuItem value="Informal">Informal</MenuItem>
             </SelectForm>
+            {renda.tipo === 'Imposto de renda' ? (
+              <SelectForm
+                id="input-tipoRenda"
+                label="Recebido de"
+                value={rendaRecebida}
+                onChange={(event) => {
+                  setRendaRecebida(event.target.value);
+                }}
+              >
+                <MenuItem value="CNPJ">CNPJ</MenuItem>
+                <MenuItem value="CPF">CPF</MenuItem>
+              </SelectForm>
+            ) : (
+              ''
+            )}
           </div>
 
-          {renda.tipo != 'Imposto de renda' ? (
+          {rendaRecebida === 'CNPJ' && renda.tipo !== 'Informal' && (
+            <>
+              <div>
+                <InputForm
+                  id="input-cnpj"
+                  value={renda.cnpj}
+                  label="CNPJ"
+                  maxLength="18"
+                  onChange={(event) => {
+                    const atualizaRenda = { ...renda };
+                    atualizaRenda.cnpj = event.target.value.replace(
+                      /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,
+                      '$1.$2.$3/$4-$5',
+                    );
+                    setRenda(atualizaRenda);
+                  }}
+                />
+
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    const cnpjNumerico = renda.cnpj.replace(/[^\d]/g, '');
+
+                    if (cnpjNumerico.length !== 14) {
+                      alert(
+                        'CNPJ não atende à quantidade mínima de caracteres',
+                      );
+                    } else {
+                      consultaEmpresa(renda.cnpj);
+                    }
+                  }}
+                  style={{
+                    alignSelf: 'center',
+                    width: '96%',
+                    height: '50px',
+                    backgroundColor: '#1f467e',
+                    color: 'white',
+                    display: 'flex',
+                    gap: '10px',
+                  }}
+                >
+                  Consultar
+                </Button>
+              </div>
+
+              <div>
+                <InputLeitura
+                  id={`nomeDaEmpresa${empresaAtual.cnpj}`}
+                  label="Razão social"
+                  value={empresaAtual.razao_social || ''}
+                />
+              </div>
+            </>
+          )}
+
+          {rendaRecebida !== 'CNPJ' && (
+            <div>
+              <InputLeitura
+                id={`cpfRenda${cpf}`}
+                label="CPF"
+                value={cpf || ''}
+              />
+            </div>
+          )}
+
+          {renda.tipo === 'Imposto de renda' ||
+          renda.tipo === 'Pró labore' ||
+          renda.tipo === 'Informal' ? (
+            ''
+          ) : (
             <div>
               <InputForm
                 id="input-admissao"
@@ -214,7 +265,7 @@ export default function FormRenda() {
                 maxLength="10"
               />
               <InputForm
-                id="input-admissao"
+                id="input-referencia"
                 value={renda.referencia}
                 label="Refêrencia"
                 onChange={(event) => {
@@ -228,8 +279,6 @@ export default function FormRenda() {
                 maxLength="7"
               />
             </div>
-          ) : (
-            ''
           )}
 
           <div>
@@ -347,33 +396,64 @@ export default function FormRenda() {
                     ) : (
                       ''
                     )}
-                    <InputLeitura
-                      id={`nomeDaEmpresa${renda.cnpj}`}
-                      label="Razão social"
-                      value={renda.empresa}
-                    />
+
+                    {renda.tipo !== 'Informal' &&
+                      renda.tipo !== 'Pró labore' && (
+                        <>
+                          {renda.recebida === 'CNPJ' ? (
+                            <>
+                              <InputLeitura
+                                id={`nomeDaEmpresa${renda.cnpj}`}
+                                label="Razão social"
+                                value={renda.empresa}
+                              />
+                              <div>
+                                <InputLeitura
+                                  id={`cnpjDaEmpresa${renda.cnpj}`}
+                                  label="CNPJ"
+                                  value={renda.cnpj}
+                                />
+                                <InputLeitura
+                                  key={`referenciaDaEmpresa${renda.cnpj}`}
+                                  label="Refêrencia"
+                                  value={renda.referencia}
+                                />
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              <div>
+                                <InputLeitura
+                                  id={`cpfDaRenda${renda.cpf}`}
+                                  label="CPF"
+                                  value={renda.cpf}
+                                />
+                                <InputLeitura
+                                  key={`referenciaDaEmpresa${renda.cpf}`}
+                                  label="Refêrencia"
+                                  value={renda.referencia}
+                                />
+                              </div>
+                            </>
+                          )}
+                        </>
+                      )}
+
                     <div>
-                      <InputLeitura
-                        id={`cnpjDaEmpresa${renda.cnpj}`}
-                        label="CNPJ"
-                        value={renda.cnpj}
-                      />
+                      {(renda.tipo === 'Imposto de renda' &&
+                        renda.recebida === 'CNPJ') ||
+                      renda.tipo === 'CLT' ? (
+                        <InputLeitura
+                          key={`admissaoDaEmpresa${index}`}
+                          label="Admissão"
+                          value={renda.admissao}
+                        />
+                      ) : (
+                        ''
+                      )}
 
                       <InputLeitura
-                        key={`referenciaDaEmpresa${renda.cnpj}`}
-                        label="Refêrencia"
-                        value={renda.referencia}
-                      />
-                    </div>
-
-                    <div>
-                      <InputLeitura
-                        key={`admissaoDaEmpresa${renda.cnpj}`}
-                        label="Admissão"
-                        value={renda.admissao}
-                      />
-                      <InputLeitura
-                        key={`cargoDaEmpresa${renda.cnpj}`}
+                        key={`cargoDaEmpresa${index}`}
                         label="Cargo"
                         value={renda.cargo}
                       />
