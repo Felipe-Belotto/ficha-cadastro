@@ -3,6 +3,7 @@ import { CadastroContext } from '../../context/cadastroInfo';
 import styles from '../Formulario/Formulario.module.css';
 import { Button } from '@mui/material';
 import CalculaPrazo from '../../functions/CalculaPrazo';
+import PrintIcon from '@mui/icons-material/Print';
 
 export default function BotoesEtapas() {
   const {
@@ -120,7 +121,7 @@ export default function BotoesEtapas() {
         style={{
           minWidth: '150px',
           display: status === 1 || status === 4 ? 'none' : 'flex',
-          backgroundColor: '#021c4097',
+          backgroundColor: '#01102697',
           color: 'white',
           cursor: 'pointer',
         }}
@@ -135,13 +136,28 @@ export default function BotoesEtapas() {
           minWidth: '150px',
           display: status < 6 ? 'flex' : 'none',
           alignItems: 'center',
-          backgroundColor: '#1f467e',
+          backgroundColor: status === 3 ? '#153d2c' : '#1f467e',
           color: 'white',
           cursor: 'pointer',
         }}
         onClick={avancar}
       >
         {status === 3 ? 'Salvar' : 'Avançar'}
+      </Button>
+
+      <Button
+        variant="outlined"
+        style={{
+          minWidth: '150px',
+          display: status === 6 ? 'flex' : 'none',
+          alignItems: 'center',
+          backgroundColor: '#35363a',
+          color: 'white',
+          cursor: 'pointer',
+        }}
+        onClick={window.print}
+      >
+        <PrintIcon />
       </Button>
     </section>
   );

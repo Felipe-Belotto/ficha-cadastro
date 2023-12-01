@@ -10,7 +10,7 @@ function InputForm(props) {
       value={props.value}
       variant="outlined"
       onChange={props.onChange}
-      /* autoComplete="none" */
+      autoComplete="none"
       InputProps={{
         inputProps: {
           maxLength: props.maxLength > 0 ? props.maxLength : 'none',
