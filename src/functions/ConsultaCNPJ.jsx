@@ -1,3 +1,8 @@
+const empresaNaoEncontrada = {
+  razao_social: 'CNPJ não encontrado',
+  data_inicio_atividade: '0000-00-00',
+};
+
 export default async function consultaCNPJ(cnpj) {
   const formatadoCNPJ = cnpj.replace(/[./-]/g, '');
 
@@ -15,6 +20,7 @@ export default async function consultaCNPJ(cnpj) {
     }
   } catch (error) {
     console.error('Erro na consultaCNPJ:', error.message);
-    return null;
+    alert('CNPJ não encontrado no sistema da receita federal');
+    return empresaNaoEncontrada;
   }
 }
