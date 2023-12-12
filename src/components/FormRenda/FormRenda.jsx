@@ -80,45 +80,41 @@ export default function FormRenda() {
   }
 
   function adicionaRenda(event) {
-    if (!empresaAtual.razao_social == 'CNPJ não encontrado') {
-      const mesAtual = obterMesEAnoAtual();
+    const mesAtual = obterMesEAnoAtual();
 
-      const rendaAtual = {
-        recebida: rendaRecebida,
-        empresa: empresaAtual.razao_social,
-        cpf: cpf,
-        cnpj: renda.cnpj,
-        admissao:
-          renda.tipo === 'Imposto de renda' && rendaRecebida === 'CNPJ'
-            ? FormatarData(empresaAtual.data_inicio_atividade)
-            : renda.admissao,
-        tipo: renda.tipo,
-        cargo: renda.cargo,
-        renda: renda.renda,
-        referencia:
-          renda.tipo === 'Imposto de renda' ? mesAtual : renda.referencia,
-      };
+    const rendaAtual = {
+      recebida: rendaRecebida,
+      empresa: empresaAtual.razao_social,
+      cpf: cpf,
+      cnpj: renda.cnpj,
+      admissao:
+        renda.tipo === 'Imposto de renda' && rendaRecebida === 'CNPJ'
+          ? FormatarData(empresaAtual.data_inicio_atividade)
+          : renda.admissao,
+      tipo: renda.tipo,
+      cargo: renda.cargo,
+      renda: renda.renda,
+      referencia:
+        renda.tipo === 'Imposto de renda' ? mesAtual : renda.referencia,
+    };
 
-      const listaAtualizada = [...listaRendas, rendaAtual];
+    const listaAtualizada = [...listaRendas, rendaAtual];
 
-      setListaRendas(listaAtualizada);
-      console.log(listaRendas);
+    setListaRendas(listaAtualizada);
+    console.log(listaRendas);
 
-      const rendaVazia = {
-        empresa: '',
-        cnpj: '',
-        admissao: '',
-        tipo: renda.tipo,
-        renda: '',
-        cargo: '',
-        referencia: '',
-      };
+    const rendaVazia = {
+      empresa: '',
+      cnpj: '',
+      admissao: '',
+      tipo: renda.tipo,
+      renda: '',
+      cargo: '',
+      referencia: '',
+    };
 
-      setRenda(rendaVazia);
-      setEmpresaAtual('');
-    } else {
-      alert('CNPJ invalido, não será possivel adiciona-lo na renda do cliente');
-    }
+    setRenda(rendaVazia);
+    setEmpresaAtual('');
   }
 
   async function consultaEmpresa(cnpj) {

@@ -1,5 +1,5 @@
 const empresaNaoEncontrada = {
-  razao_social: 'CNPJ não encontrado',
+  razao_social: 'CNPJ nao encontrado',
   data_inicio_atividade: '0000-00-00',
 };
 
