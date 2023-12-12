@@ -7,7 +7,7 @@ import { useContext, useEffect } from 'react';
 import { CadastroContext } from '../../context/cadastroInfo';
 import { NumericFormat } from 'react-number-format';
 import InputLeitura from '../InputLeitura/InputLeitura';
-import MultilineForm from '../MultilineForm/MultilineForm';
+import MultilineForm from '../multilineForm/multilineForm';
 
 export default function FormProposta() {
   const {
