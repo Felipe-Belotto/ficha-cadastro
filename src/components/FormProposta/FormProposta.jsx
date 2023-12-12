@@ -6,8 +6,8 @@ import Titulo from '../Titulo/Titulo';
 import { useContext, useEffect } from 'react';
 import { CadastroContext } from '../../context/cadastroInfo';
 import { NumericFormat } from 'react-number-format';
-import MultilineForm from '../MultilineForm/MultilineForm';
 import InputLeitura from '../InputLeitura/InputLeitura';
+import MultilineForm from '../MultilineForm/MultilineForm';
 
 export default function FormProposta() {
   const {
